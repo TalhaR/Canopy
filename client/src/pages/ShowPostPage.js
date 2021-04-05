@@ -1,5 +1,4 @@
 import React from 'react';
-import Post from '../components/Post';
 import Loading from '../components/Loading';
 import { Redirect } from 'react-router-dom';
 

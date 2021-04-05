@@ -1,7 +1,5 @@
 import React from 'react';
-import Post from '../components/Post';
 import Loading from '../components/Loading';
-
 
 class PostsListPage extends React.Component {
   state = {
@@ -15,7 +13,7 @@ class PostsListPage extends React.Component {
       .then(posts => {
         this.setState({
           loading: false,
-          posts: posts.map((p,ii) => <Post {...p} key={ii} />),
+          // posts: posts.map((p,ii) => <Post {...p} key={ii} />),
         });
       })
       .catch(err => console.log("API ERROR: ", err));
