@@ -1,59 +1,31 @@
-import React from 'react';
+import React from "react";
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  NavLink
-} from 'react-router-dom';
-import PostsListPage from './pages/PostsListPage';
-import PostFormPage from './pages/PostFormPage';
-import ShowPostPage from './pages/ShowPostPage';
-import AboutUsPage from './pages/AboutUsPage';
+    BrowserRouter as Router,
+    Switch,
+    Route,
+} from "react-router-dom";
+import Navbar from "./components/Navbar";
+import HomePage from "./pages/HomePage";
 
-import './App.css';
+import "./App.css";
 
+// <NavLink className="nav-link" exact to="/test">
+// Test
+// </NavLink>
 
-function Navigation(props) {
-  return (
-    <nav className="navbar navbar-expand-sm navbar-dark bg-dark shadow mb-3">
-      <Link className="navbar-brand" to="/">Canopy</Link>
-      <ul className="navbar-nav mr-auto">
-        <li className="nav-item">
-          <NavLink className="nav-link" exact to="/posts/new">
-            Create a Post
-          </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink className="nav-link" exact to="/about-us">
-            About Us
-          </NavLink>
-        </li>
-      </ul>
-    </nav>
-  );
-}
-
-
-class App extends React.Component {
-  render() {
+function App() {
     return (
-      <Router>
-        <Navigation />
-        <div className="container-fluid text-center">
-          <div className="row justify-content-center">
+        <Router>
+            <Navbar />
             <Switch>
-              <Route path="/posts/new" component={PostFormPage} />
-              <Route path="/posts/:id" component={ShowPostPage} />
-              <Route path="/about-us" component={AboutUsPage} />
-              <Route path="/" component={PostsListPage} />
+                {/* <Route path="/posts/new" component={PostFormPage} /> */}
+                {/* <Route path="/posts/:id" component={ShowPostPage} /> */}
+                {/* <Route path="/about-us" component={AboutUsPage} /> */}
+                {/* <Route path="/" component={PostsListPage} /> */}
+                <Route path="/" component={HomePage} />
             </Switch>
-          </div>
-        </div>
-      </Router>
+        </Router>
     );
-  }
 }
-
 
 export default App;
