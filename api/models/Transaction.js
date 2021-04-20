@@ -40,9 +40,11 @@ module.exports = (sequelize, DataTypes) => {
     Transaction.associate = (models) => {
         // associations can be defined here
 
+        // One-to-Many association between User and Transaction Table
         // This will add userId as a column to the Transaction table
         models.Transaction.belongsTo(models.User);
 
+        // One-to-Many association between Stock and Transaction Table
         // This will add stockId as a column to the Transaction table
         models.Transacton.belongsTo(models.Stock);
         

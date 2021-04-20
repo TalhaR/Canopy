@@ -37,9 +37,13 @@ module.exports = (sequelize, DataTypes) => {
     Stock.associate = (models) => {
         // associations can be defined here
 
+        // One-to-Many association between Stock and Transaction Table
         // This will add stockId to the Transaction model and table
         models.Stock.hasMany(models.Transaction);
 
+        // One-to-Many association between Stock and Holding Table
+        // This will add stockId to the Transaction model and table
+        models.Stock.hasMany(models.Holding);
     };
 
     return Stock;
