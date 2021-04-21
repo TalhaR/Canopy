@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
+import StockPage from "./pages/StockPage/StockPage";
 
 import "./App.css";
 
@@ -21,7 +22,7 @@ function App() {
                 {/* <Route path="/posts/new" component={PostFormPage} /> */}
                 {/* <Route path="/posts/:id" component={ShowPostPage} /> */}
                 {/* <Route path="/about-us" component={AboutUsPage} /> */}
-                {/* <Route path="/" component={PostsListPage} /> */}
+                <Route path="/stocks/:ticker" component={StockPage} />
                 <Route path="/" component={HomePage} />
             </Switch>
         </Router>
