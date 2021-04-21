@@ -1,6 +1,7 @@
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
+import { Link } from "react-router-dom";
 import Graph from "../components/Graph";
 import News from "../components/News";
 import StockList from "../components/StockList";
@@ -34,6 +35,7 @@ function HomePage() {
                     <News />
                 </Grid>
             </Grid>
+            <Link to="/stocks/msft"> Stock Page </Link>
         </main>
     );
 }
