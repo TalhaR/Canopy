@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
 const db = require('./models');
+const seed = require ('./seed');
 const app = express();
 const PORT = process.env.PORT;
 
@@ -29,6 +30,16 @@ if (process.env.NODE_ENV === 'production') {
 // update DB tables based on model updates. Does not handle renaming tables/columns
 // NOTE: toggling this to true drops all tables (including data)
 db.sequelize.sync({ force: false });
+
+const seedDB = async () => {
+  try {
+    await seed();
+  } catch (err) {
+    console.error('syncDB error:', err);
+  }
+}
+
+seedDB();
 
 // start up the server
 if (PORT) {
