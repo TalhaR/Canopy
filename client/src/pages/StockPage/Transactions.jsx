@@ -1,25 +1,77 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
+import {
+    AppBar,
+    Tabs,
+    Tab,
+    Box,
+    Typography,
+    TextField,
+    Button,
+} from "@material-ui/core";
 
 function TabPanel({ children, value, index, ...other }) {
+    const classes = useStyles();
+
     return (
         <div
             role="tabpanel"
             hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
+            id={`transaction-tabpanel-${index}`}
+            aria-labelledby={`transaction-tab-${index}`}
             {...other}
         >
             {value === index && (
-                <Box p={3}>
-                    <Typography>{children}</Typography>
-                </Box>
+                <form
+                    className={classes.rootPanel}
+                    noValidate
+                    autoComplete="off"
+                >
+                    <Box p={2} display="flex" alignItems="center">
+                        <Typography variant="body1">
+                            Shares: 
+                        </Typography>
+                        <TextField
+                            id="outlined-number"
+                            placeholder="0"
+                            type="number"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            variant="outlined"
+                            required="true"
+                        />
+                    </Box>
+                    <Box p={2} display="flex" alignItems="center">
+                        <Typography variant="body1">
+                            Market Price: 
+                        </Typography>
+                        <Typography variant="h6" >
+                            $123.45
+                        </Typography>
+                    </Box>
+                    <hr />
+                    <Box p={2} display="flex" alignItems="center">
+                        <Typography variant="body1">
+                            Transaction Cost: 
+                        </Typography>
+                        <Typography variant="h6" >
+                            $123.45
+                        </Typography>
+                    </Box>
+                    <Box p={1} display="flex" justifyContent="center">
+                        <Button variant="contained" color="primary">
+                            Submit
+                        </Button>
+                    </Box>
+                    <hr />
+                    <Box p={1} display="flex" justifyContent="center">
+                        <Typography variant="subtitle1">
+                            Buying Power: $100,000.00
+                        </Typography>
+                    </Box>
+                </form>
             )}
         </div>
     );
@@ -27,17 +79,23 @@ function TabPanel({ children, value, index, ...other }) {
 
 function a11yProps(index) {
     return {
-        id: `simple-tab-${index}`,
-        "aria-controls": `simple-tabpanel-${index}`,
+        id: `transaction-${index}`,
+        "aria-controls": `transaction-panel-${index}`,
     };
 }
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 1,
-        color: "white",
+        // flexGrow: 1,
+        color: "black",
         height: "450px",
-        backgroundColor: "gray"
+        backgroundColor: "white",
+    },
+    rootPanel: {
+        "& .MuiTextField-root": {
+            margin: theme.spacing(1),
+            width: "10ch",
+        },
     },
 }));
 
@@ -55,17 +113,17 @@ const Transactions = () => {
                 <Tabs
                     value={value}
                     onChange={handleChange}
-                    aria-label="simple tabs example"
+                    aria-label="transactions"
                 >
                     <Tab label="Buy" {...a11yProps(0)} />
                     <Tab label="Sell" {...a11yProps(1)} />
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0}>
-                Item One
+                Buy
             </TabPanel>
             <TabPanel value={value} index={1}>
-                Item Two
+                Sell
             </TabPanel>
         </div>
     );
