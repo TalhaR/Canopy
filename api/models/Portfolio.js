@@ -34,9 +34,7 @@ module.exports = (sequelize, DataTypes) => {
 
         // One-to-Many association between Portfolio and Holding Table
         // This will add portfolioId to the Holding model and table
-        models.Portfolio.hasMany(models.Holding, {
-            foreignKey: 'portfolioId'
-        });  
+        models.Portfolio.hasMany(models.Holding);  
 
     };
 

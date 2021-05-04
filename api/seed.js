@@ -18,7 +18,7 @@ const STOCKS = [
 const TRANSACTIONS = [
   {id: 1, userId: 1, stockId: 1, date: '2021-04-10T10:15:08.000Z', buy: true, quantity: '7', price: '1082.83'},
   {id: 2, userId: 3, stockId: 2, date: '2021-04-12T02:15:08.000Z', buy: true, quantity: '5', price: '379.25'},
-  {id: 3, userId: 2, stockId: 3, date: '2021-04-14T15:15:08.000Z', buy: true, quantity: '3', price: '1026.54'},
+  {id: 3, userId: 2, stockId: 3, date: '2021-04-14T15:30:08.000Z', buy: true, quantity: '3', price: '1026.54'},
   {id: 4, userId: 3, stockId: 3, date: '2021-04-15T12:15:08.000Z', buy: true, quantity: '5', price: '1710.90'},
   {id: 5, userId: 5, stockId: 1, date: '2021-04-16T10:18:08.000Z', buy: false, quantity: '5', price: '773.45'},
   {id: 6, userId: 4, stockId: 2, date: '2021-04-16T10:21:26.000Z', buy: true, quantity: '2', price: '151.70'},
@@ -67,8 +67,8 @@ const seed = () => {
       let userPromises = USERS.map(u => User.create(u));
       let stockPromises = STOCKS.map(s => Stock.create(s));
       let transactionPromises = TRANSACTIONS.map(t => Transaction.create(t));
-      let holdingPromises = HOLDINGS.map(hd => Holding.create(hd));
       let portfolioPromises = PORTFOLIOS.map(p => Portfolio.create(p));
+      let holdingPromises = HOLDINGS.map(hd => Holding.create(hd));
       let historyPromises = HISTORIES.map(ht => History.create(ht));
       return Promise.all([...userPromises, ...stockPromises, ...transactionPromises, ...holdingPromises, ...portfolioPromises, ...historyPromises]);
     })
