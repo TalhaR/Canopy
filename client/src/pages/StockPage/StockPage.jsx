@@ -1,10 +1,12 @@
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React from "react";
-import { Link } from "react-router-dom";
-import Graph from "../components/Graph";
-import News from "../components/News";
-import StockList from "../components/StockList";
+import React, { useEffect } from "react";
+
+import Graph from "../../components/Graph";
+import News from "../../components/News";
+import Transactions from "./Transactions";
+import Stats from "./Stats";
+import { useParams } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -13,31 +15,33 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function HomePage() {
+const StockPage = () => {
     const classes = useStyles();
+    const { ticker } = useParams();
+
+    useEffect(() => {}, []);
 
     return (
-        <main className={classes.root}>
+        <div className={classes.root}>
             <Grid container justify="center" spacing={3}>
                 <Grid item xs={12} md={6}>
-                    <Graph />
+                    <Graph title={ticker} value={1234.56} />
                 </Grid>
 
                 <Grid item xs={12} sm={6} md={4}>
-                    <StockList title="Portfolio" />
+                    <Transactions />
                 </Grid>
 
                 <Grid item xs={12} sm={6} md={4}>
-                    <StockList title="Watchlist" />
+                    <Stats />
                 </Grid>
 
                 <Grid item xs={12} md={6}>
                     <News />
                 </Grid>
             </Grid>
-            <Link to="/stocks/msft"> Stock Page </Link>
-        </main>
+        </div>
     );
-}
+};
 
-export default HomePage;
+export default StockPage;
