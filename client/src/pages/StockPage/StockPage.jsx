@@ -1,6 +1,6 @@
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React from "react";
+import React, { useEffect } from "react";
 
 import Graph from "../../components/Graph";
 import News from "../../components/News";
@@ -19,11 +19,13 @@ const StockPage = () => {
     const classes = useStyles();
     const { ticker } = useParams();
 
+    useEffect(() => {}, []);
+
     return (
         <div className={classes.root}>
             <Grid container justify="center" spacing={3}>
                 <Grid item xs={12} md={6}>
-                    <Graph title={ticker} />
+                    <Graph title={ticker} value={1234.56} />
                 </Grid>
 
                 <Grid item xs={12} sm={6} md={4}>

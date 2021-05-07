@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     change: {}
 });
 
-function Graph({ title, value, increase }) {
+function Graph({ title, value }) {
     const classes = useStyles();
 
     return (
@@ -26,10 +26,7 @@ function Graph({ title, value, increase }) {
                 { title }
             </Typography>}
             <Typography className={classes.value} variant="h5" component="h2">
-                $1234.56
-            </Typography>
-            <Typography className={classes.change} variant="subtitle2" >
-                +123.45 (10%) Today
+                ${value}
             </Typography>
             <hr />
         </Card>
