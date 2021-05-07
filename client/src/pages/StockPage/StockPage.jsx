@@ -6,6 +6,7 @@ import Graph from "../../components/Graph";
 import News from "../../components/News";
 import Transactions from "./Transactions";
 import Stats from "./Stats";
+import { useParams } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -16,12 +17,13 @@ const useStyles = makeStyles((theme) => ({
 
 const StockPage = () => {
     const classes = useStyles();
+    const { ticker } = useParams();
 
     return (
         <div className={classes.root}>
             <Grid container justify="center" spacing={3}>
                 <Grid item xs={12} md={6}>
-                    <Graph title={"msft"} />
+                    <Graph title={ticker} />
                 </Grid>
 
                 <Grid item xs={12} sm={6} md={4}>
