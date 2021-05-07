@@ -40,7 +40,7 @@ function TabPanel({ children, value, index, ...other }) {
                                 shrink: true,
                             }}
                             variant="outlined"
-                            required="true"
+                            required={true}
                         />
                     </Box>
                     <Box p={2} display="flex" alignItems="center">
@@ -54,7 +54,7 @@ function TabPanel({ children, value, index, ...other }) {
                     <hr />
                     <Box p={2} display="flex" alignItems="center">
                         <Typography variant="body1">
-                            Transaction Cost: 
+                            Transaction { value === 0 ? "Cost" : "Credit"}: 
                         </Typography>
                         <Typography variant="h6" >
                             $123.45
