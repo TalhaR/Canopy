@@ -1,39 +1,59 @@
 'use strict';
-const { Model } = require('sequelize');
 
+const bcrypt = require('bcrypt-nodejs');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
     class User extends Model {}
 
-    User.init(
-        {
-            username: {
-                type: DataTypes.STRING,
-                validate: {
-                    len: [3, 250],
-                    notEmpty: true,
-                },
-                unique: true,
+    User.init({
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true
+        },
+        username: {
+            type: DataTypes.STRING,
+            validate: {
+                len: [3, 250],
+                notEmpty: true,
             },
-            email: {
-                type: DataTypes.STRING,
-                validate: {
-                    notEmpty: true,
-                },
-                unique: true,
+            unique: true,
+        },
+        email: {
+            type: DataTypes.STRING,
+            validate: {
+                notEmpty: true,
             },
-            password: {
-                type: DataTypes.STRING,
-                validate: {
-                    notEmpty: true,
-                },
+            unique: true,
+        },
+        password: {
+            type: DataTypes.STRING,
+            validate: {
+                notEmpty: true,
             },
         },
-        {
-            sequelize,
-            modelName: 'user'
-        },
-    );
-
+    }, {
+        sequelize,
+        modelName: 'user'
+    }, {
+        getterMethods: {
+            fullName() {
+                return `${this.firstName} ${this.lastName}`;
+            }
+        }
+    });
+    // var User = sequelize.define('User', {
+    //     firstName: DataTypes.STRING,
+    //     lastName: DataTypes.STRING,
+    //     email: DataTypes.STRING,
+    //     password: DataTypes.STRING
+    // }, {
+    //     getterMethods: {
+    //         fullName() {
+    //             return `${this.firstName} ${this.lastName}`;
+    //         }
+    //     }
+    // });
     User.associate = (models) => {
         // associations can be defined here
 
@@ -52,6 +72,12 @@ module.exports = (sequelize, DataTypes) => {
         // One-to-One association between User and Portfolio Table
         models.User.hasOne(models.Portfolio);
     };
+
+    User.beforeCreate(function(user, options) {
+        var salt = bcrypt.genSaltSync(10);
+        var hash = bcrypt.hashSync(user.password, salt);
+        user.password = hash;
+    })
 
     return User;
 };

@@ -1,11 +1,15 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.json({
-    title: 'APP TITLE',
-    description: 'A short description about this app',
-  });
+router.get('login/', (req, res) => {
+    res.render('login');
+});
+
+router.post('login/', (req, res, next) => {
+    passport.authenticate('local', {
+        successRedirect: '/api/',
+        failureRedirect: '/api/login',
+    })(req, res, next);
 });
 
 
