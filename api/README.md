@@ -187,6 +187,101 @@
 ]
 ```
 
+# Add a stock holding for a specific user
+
+**URL** : `http://localhost:8080/api/holdings/user/2`
+
+**Method** : `POST`
+
+**Data example**
+
+```json
+{
+	"id": "7",
+	"userId": "1",
+	"portfolioId": "1",
+	"stockId": "3",
+	"quantity": "10"
+}
+```
+
+## Success Response
+
+**Code** : `200 OK`
+
+**Content example**
+
+```json
+{
+      "id": 7,
+      "userId": 1,
+      "portfolioId": 1,
+      "stockId": 3,
+      "quantity": 10,
+      "updatedAt": "2021-05-14T18:28:25.291Z",
+      "createdAt": "2021-05-14T18:28:25.291Z"
+}
+```
+
+# Edit a stock holding for a specific user
+
+**URL** : `http://localhost:8080/api/holdings/user/2`
+
+**Method** : `PUT`
+
+**Data example**
+
+```json
+{
+	"stockId": "3",
+	"quantity": "550"
+}
+```
+
+## Success Response
+
+**Code** : `201 CREATED`
+
+**Content example**
+
+```json
+{
+  "id": 4,
+  "quantity": 550,
+  "createdAt": "2021-05-14T18:41:11.861Z",
+  "updatedAt": "2021-05-14T18:41:28.076Z",
+  "userId": 3,
+  "stockId": 3,
+  "portfolioId": 3
+}
+```
+
+# Delete a stock holding for a specific user
+
+**URL** : `http://localhost:8080/api/holdings/user/3`
+
+**Method** : `DELETE`
+
+**Data example**
+
+```json
+{
+	"stockId": "3"
+}
+```
+
+## Success Response
+
+**Code** : `200 OK`
+
+**Content example**
+
+```json
+{
+  "Deleted a holding."
+}
+```
+
 # Get the portfolio of a specific user
 
 **URL** : `http://localhost:8080/api/portfolios/user/2`
