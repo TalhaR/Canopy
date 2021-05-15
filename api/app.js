@@ -4,7 +4,11 @@ const path = require('path');
 const db = require('./models');
 const seed = require ('./seed');
 const app = express();
-const PORT = process.env.PORT;
+var cors = require('cors')
+
+app.use(cors())
+// const PORT = process.env.PORT;
+const PORT = 8080;
 
 
 // this lets us parse 'application/json' content in http requests
