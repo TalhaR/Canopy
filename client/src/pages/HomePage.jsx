@@ -1,9 +1,10 @@
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Graph from "../components/Graph";
 import News from "../components/News";
 import StockList from "../components/StockList";
+const axios = require("axios");
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -14,6 +15,22 @@ const useStyles = makeStyles((theme) => ({
 
 const HomePage = () => {
     const classes = useStyles();
+    const [holdings, setHoldings] = useState([]);
+
+    useEffect(() => {
+        const getHoldings = async () => {
+            let res = await axios.get("http://localhost:8080/api/holdings/user/1")
+            if (res.status === 200) {
+                const stockIds = res.data.map((obj, i ) => {
+                    return obj["stockId"];
+                })
+                
+            }
+            console.log(res.data);
+        }
+
+        getHoldings();
+    }, [])
 
     return (
         <main className={classes.root}>
