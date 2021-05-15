@@ -1,4 +1,4 @@
-import { Box, Card, makeStyles, Typography } from "@material-ui/core";
+import { Card, makeStyles, Typography } from "@material-ui/core";
 import React, { useEffect } from "react";
 import Chart from 'chart.js/auto';
 
