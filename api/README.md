@@ -163,7 +163,7 @@
 
 # Get the holdings of a specific user
 
-**URL** : `http://localhost:8080/api/holdings/user/2`
+**URL** : `http://localhost:8080/api/holdings/user/3`
 
 **Method** : `GET`
 
@@ -175,15 +175,14 @@
 
 ```json
 [
-    {
-        "id": 2,
-        "quantity": 3,
-        "createdAt": "2021-05-13T01:47:50.637Z",
-        "updatedAt": "2021-05-13T01:47:50.637Z",
-        "userId": 2,
-        "stockId": 3,
-        "portfolioId": 2
-    }
+  {
+    "ticker": "RBLX",
+    "quantity": 5
+  },
+  {
+    "ticker": "COIN",
+    "quantity": 5
+  }
 ]
 ```
 
