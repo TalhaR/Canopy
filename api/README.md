@@ -197,9 +197,6 @@
 
 ```json
 {
-	"id": "7",
-	"userId": "1",
-	"portfolioId": "1",
 	"stockId": "3",
 	"quantity": "10"
 }
@@ -213,13 +210,13 @@
 
 ```json
 {
-      "id": 7,
-      "userId": 1,
-      "portfolioId": 1,
-      "stockId": 3,
-      "quantity": 10,
-      "updatedAt": "2021-05-14T18:28:25.291Z",
-      "createdAt": "2021-05-14T18:28:25.291Z"
+	"id": 7,
+	"userId": 2,
+	"portfolioId": 2,
+	"stockId": 3,
+	"quantity": 10,
+	"updatedAt": "2021-05-14T19:05:19.886Z",
+  	"createdAt": "2021-05-14T19:05:19.886Z"
 }
 ```
 
@@ -278,7 +275,7 @@
 
 ```json
 {
-  "Deleted a holding."
+	"Deleted a holding."
 }
 ```
 
