@@ -15,21 +15,28 @@ const useStyles = makeStyles((theme) => ({
 
 const HomePage = () => {
     const classes = useStyles();
-    const [holdings, setHoldings] = useState([]);
+    const [holdings, setHoldings] = useState(["VOO", "SPY", "MSFT"]);
+    const [watchList, setWatchList] = useState(["GME", "RBLX", "COIN"]);
 
     useEffect(() => {
         const getHoldings = async () => {
             let res = await axios.get("http://localhost:8080/api/holdings/user/1")
             if (res.status === 200) {
-                const stockIds = res.data.map((obj, i ) => {
-                    return obj["stockId"];
-                })
-                
+                setHoldings(res.data.map((s) => s.ticker))
+            }
+            console.log(res.data);
+        }
+
+        const getWatchList = async () => {
+            let res = await axios.get("http://localhost:8080/api/watchlist/user/1")
+            if (res.status === 200) {
+                setWatchList(res.data.map((s) => s.ticker))
             }
             console.log(res.data);
         }
 
         getHoldings();
+        // getWatchList();
     }, [])
 
     return (
@@ -42,14 +49,14 @@ const HomePage = () => {
                 <Grid item xs={12} sm={6} md={4}>
                     <StockList
                         title="Portfolio"
-                        stockList={["VOO", "MSFT", "SPY"]}
+                        stockList={holdings}
                     />
                 </Grid>
 
                 <Grid item xs={12} sm={6} md={4}>
                     <StockList
                         title="Watchlist"
-                        stockList={["GME", "COIN", "RBLX"]}
+                        stockList={watchList}
                     />
                 </Grid>
 
