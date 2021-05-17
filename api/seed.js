@@ -24,6 +24,14 @@ const TRANSACTIONS = [
   {id: 6, userId: 4, stockId: 2, date: '2021-04-16T10:21:26.000Z', buy: true, quantity: '2', price: '151.70'},
 ];
 
+const PORTFOLIOS = [
+  {id: 1, userId: 1, buyingPower: 8232.21, netWorth: 70000},
+  {id: 2, userId: 2, buyingPower: 15000, netWorth: 23500},
+  {id: 3, userId: 3, buyingPower: 3247, netWorth: 16592},
+  {id: 4, userId: 4, buyingPower: 33629, netWorth: 45200},
+  {id: 5, userId: 5, buyingPower: 76, netWorth: 2522},
+];
+
 const HOLDINGS = [
   {id: 1, userId: 1, stockId: 1, quantity: 2, portfolioId: 1},
   {id: 2, userId: 2, stockId: 3, quantity: 3, portfolioId: 2},
@@ -31,14 +39,6 @@ const HOLDINGS = [
   {id: 4, userId: 3, stockId: 3, quantity: 5, portfolioId: 3},
   {id: 5, userId: 4, stockId: 2, quantity: 2, portfolioId: 4},
   {id: 6, userId: 5, stockId: 1, quantity: 5, portfolioId: 5},
-];
-
-const PORTFOLIOS = [
-  {id: 1, userId: 1, buyingPower: 8232.21, netWorth: 70000},
-  {id: 2, userId: 2, buyingPower: 15000, netWorth: 23500},
-  {id: 3, userId: 3, buyingPower: 3247, netWorth: 16592},
-  {id: 4, userId: 4, buyingPower: 33629, netWorth: 45200},
-  {id: 5, userId: 5, buyingPower: 76, netWorth: 2522},
 ];
 
 const HISTORIES = [
@@ -66,11 +66,17 @@ const seed = () => {
       // Create all the entries
       let userPromises = USERS.map(u => User.create(u));
       let stockPromises = STOCKS.map(s => Stock.create(s));
-      let transactionPromises = TRANSACTIONS.map(t => Transaction.create(t));
-      let portfolioPromises = PORTFOLIOS.map(p => Portfolio.create(p));
-      let holdingPromises = HOLDINGS.map(hd => Holding.create(hd));
-      let historyPromises = HISTORIES.map(ht => History.create(ht));
-      return Promise.all([...userPromises, ...stockPromises, ...transactionPromises, ...holdingPromises, ...portfolioPromises, ...historyPromises]);
+      return Promise.all([...userPromises, ...stockPromises])
+      .then(() => {
+        let transactionPromises = TRANSACTIONS.map(t => Transaction.create(t));
+        let portfolioPromises = PORTFOLIOS.map(p => Portfolio.create(p));
+        let historyPromises = HISTORIES.map(ht => History.create(ht));
+        return Promise.all([...transactionPromises, ...portfolioPromises, ...historyPromises])
+        .then(() => {
+          let holdingPromises = HOLDINGS.map(hd => Holding.create(hd));
+          return Promise.all([...holdingPromises])
+        })
+      })
     })
 }
 
