@@ -13,6 +13,9 @@ const STOCKS = [
   {id: 1, ticker: 'GME', name: 'Gamestop', price: 154.69},
   {id: 2, ticker: 'RBLX', name: 'Roblox', price: 75.85},
   {id: 3, ticker: 'COIN', name: 'Coinbase', price: 342.18},
+  {id: 4, ticker: 'SPY', name: 'SPDR S&P500 ETF', price: 244.48},
+  {id: 5, ticker: 'VOO', name: 'Vanguard 500 ETF', price: 381.69},
+  {id: 6, ticker: 'MSFT', name: 'Microsoft Corporation', price: 244.41},
 ];
 
 const TRANSACTIONS = [
@@ -25,12 +28,14 @@ const TRANSACTIONS = [
 ];
 
 const HOLDINGS = [
-  {id: 1, userId: 1, stockId: 1, quantity: 2, portfolioId: 1},
-  {id: 2, userId: 2, stockId: 3, quantity: 3, portfolioId: 2},
-  {id: 3, userId: 3, stockId: 2, quantity: 5, portfolioId: 3},
-  {id: 4, userId: 3, stockId: 3, quantity: 5, portfolioId: 3},
-  {id: 5, userId: 4, stockId: 2, quantity: 2, portfolioId: 4},
-  {id: 6, userId: 5, stockId: 1, quantity: 5, portfolioId: 5},
+  {id: 1, userId: 1, stockId: 6, quantity: 4, portfolioId: 1},
+  {id: 2, userId: 1, stockId: 5, quantity: 5, portfolioId: 1},
+  {id: 3, userId: 1, stockId: 4, quantity: 5, portfolioId: 1},
+  {id: 4, userId: 2, stockId: 3, quantity: 3, portfolioId: 2},
+  {id: 5, userId: 3, stockId: 2, quantity: 5, portfolioId: 3},
+  {id: 6, userId: 3, stockId: 3, quantity: 5, portfolioId: 3},
+  {id: 7, userId: 4, stockId: 2, quantity: 2, portfolioId: 4},
+  {id: 8, userId: 5, stockId: 1, quantity: 5, portfolioId: 5},
 ];
 
 const PORTFOLIOS = [
