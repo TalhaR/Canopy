@@ -7,8 +7,8 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         color: "white",
     },
-    center: {
-        textAlign: "center",
+    term: {
+        textDecoration: "underline",
     },
 }));
 
@@ -22,11 +22,13 @@ const HomePage = () => {
             </Typography>
             <br />
 
-            <Typography variant="h2">Definitions of Common Terms</Typography>
+            <Typography variant="h2">Common Terms</Typography>
             <br />
 
-            <Typography variant="h4">Stock</Typography>
-            <Typography variant="h6">
+            <Typography variant="h4">
+                Stock
+            </Typography>
+            <Typography paragraph={true}>
                 A stock (also known as equity) is a security that represents the
                 ownership of a fraction of a corporation. This entitles the
                 owner of the stock to a proportion of the corporation's assets
@@ -36,7 +38,7 @@ const HomePage = () => {
             <br />
 
             <Typography variant="h4">Stock Market</Typography>
-            <Typography variant="h6">
+            <Typography paragraph={true}>
                 The stock market refers to the collection of markets and
                 exchanges where regular activities of buying, selling, and
                 issuance of shares of publicly-held companies take place. Such
@@ -47,7 +49,7 @@ const HomePage = () => {
             <br />
 
             <Typography variant="h4">Stock Exchange</Typography>
-            <Typography variant="h6">
+            <Typography paragraph={true}>
                 A market where stock buyers connect with stock sellers. The most
                 prominent exchanges include the New York Stock Exchange(NYSE),
                 NASDAQ, and the Japan Exchange Group.
@@ -55,7 +57,7 @@ const HomePage = () => {
             <br />
 
             <Typography variant="h4">Over-the-counter</Typography>
-            <Typography variant="h6">
+            <Typography paragraph={true}>
                 Over-the-counter or off-exchange trading is done directly
                 between two parties, without the supervision of an exchange. OTC
                 trading is necessary for securities that do not meet the strict
@@ -66,7 +68,7 @@ const HomePage = () => {
             <br />
 
             <Typography variant="h4">Bull Market</Typography>
-            <Typography variant="h6">
+            <Typography paragraph={true}>
                 The condition of a financial market in which securityprices are
                 rising or are expected to rise. Bull markets tend to last for
                 months or even years.
@@ -74,7 +76,7 @@ const HomePage = () => {
             <br />
 
             <Typography variant="h4">Bear Market</Typography>
-            <Typography variant="h6">
+            <Typography paragraph={true}>
                 When a market experiences prolonged price declines. It typically
                 describes a condition in which securities prices fall 20% or
                 more from recent highs amid widespread pessimism and negative
@@ -83,19 +85,19 @@ const HomePage = () => {
             <br />
 
             <Typography variant="h4">Bid</Typography>
-            <Typography variant="h6">
+            <Typography paragraph={true}>
                 The price someone is willing to pay for a share.
             </Typography>
             <br />
 
             <Typography variant="h4">Ask</Typography>
-            <Typography variant="h6">
+            <Typography paragraph={true}>
                 The price someone is willing to sell a share.
             </Typography>
             <br />
 
             <Typography variant="h4">Bid-Ask Spread</Typography>
-            <Typography variant="h6">
+            <Typography paragraph={true}>
                 A bid-ask spread is the amount by which the ask price exceeds
                 the bid price for an asset in the market. The bid-ask spread is
                 essentially the difference between the highest price that a
@@ -107,21 +109,21 @@ const HomePage = () => {
             <br />
 
             <Typography variant="h4">Market Order</Typography>
-            <Typography variant="h6">
+            <Typography paragraph={true}>
                 A market order is an instruction to buy or sell a security
                 immediately at the current price.
             </Typography>
             <br />
 
             <Typography variant="h4">Limit order</Typography>
-            <Typography variant="h6">
+            <Typography paragraph={true}>
                 A limit order is an instruction to buy or sell only at a price
                 specified by the investor.
             </Typography>
             <br />
 
             <Typography variant="h4">Volume</Typography>
-            <Typography variant="h6">
+            <Typography paragraph={true}>
                 The number of shares of a security traded between its daily open
                 and close. Generally the higher the volume, the more liquid a
                 stock is.
@@ -129,7 +131,7 @@ const HomePage = () => {
             <br />
 
             <Typography variant="h4">Liquidity</Typography>
-            <Typography variant="h6">
+            <Typography paragraph={true}>
                 How rapidly shares of a stock can be bought or sold without
                 substantially impacting the stock price. Stocks with low
                 liquidity may be difficult to sell at the price that you want,
@@ -138,7 +140,7 @@ const HomePage = () => {
             <br />
 
             <Typography variant="h4">Dividends</Typography>
-            <Typography variant="h6">
+            <Typography paragraph={true}>
                 A dividend is a payment made by publicly-listed companies as a
                 reward to its shareholders. Dividends may be paid out as cash or
                 in th form of additional stock.
@@ -146,7 +148,7 @@ const HomePage = () => {
             <br />
 
             <Typography variant="h4">Initial Public Offering (IPO)</Typography>
-            <Typography variant="h6">
+            <Typography paragraph={true}>
                 An initial public offering (IPO) refers to the process of
                 offering shares of a private corporation to the public in a new
                 stock issuance. Public share issuance allows a company to raise
@@ -155,7 +157,7 @@ const HomePage = () => {
             <br />
 
             <Typography variant="h4">Market Capitalization</Typography>
-            <Typography variant="h6">
+            <Typography paragraph={true}>
                 Market capitalization refers to the total dollar market value of
                 a company's outstanding shares of stock. Commonly referred to as
                 "market cap," it is calculated by multiplying the total number
@@ -168,7 +170,7 @@ const HomePage = () => {
             <br />
 
             <Typography variant="h4">Shares Outstanding</Typography>
-            <Typography variant="h6">
+            <Typography paragraph={true}>
                 Shares outstanding refer to a company's stock currently held by
                 all its shareholders, including share blocks held by
                 institutional investors and restricted shares owned by the
@@ -177,7 +179,7 @@ const HomePage = () => {
             <br />
 
             <Typography variant="h4">Float</Typography>
-            <Typography variant="h6">
+            <Typography paragraph={true}>
                 The number of shares available to be traded by the public. It
                 can be found by subtracting the total number of closely held
                 shares (by company insiders, employees, etc.) from the total
@@ -189,7 +191,7 @@ const HomePage = () => {
             <br />
 
             <Typography variant="h4">Exchange Traded Fund (ETF)</Typography>
-            <Typography variant="h6">
+            <Typography paragraph={true}>
                 An exchange traded fund (ETF) is a type of security that tracks
                 an index, sector, commodity, or other asset, but which can be
                 purchased or sold on a stock exchange the same as a regular
@@ -202,7 +204,7 @@ const HomePage = () => {
             <br />
 
             <Typography variant="h4">Index</Typography>
-            <Typography variant="h6">
+            <Typography paragraph={true}>
                 An index is a method to track the performance of a group of
                 assets in a standardized way. Indexes typically measure the
                 performance of a basket of securities intended to replicate a
