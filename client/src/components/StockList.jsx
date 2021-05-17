@@ -25,8 +25,8 @@ const StockList = ({ title, stockList }) => {
             <hr /> 
             <Box spacing={1} >
                 {
-                    stockList.map((stock) => {
-                        return <ListElement ticker={stock} />
+                    stockList.map((stock, i) => {
+                        return <ListElement key={i} ticker={stock} />
                     })
                 }
             </Box>
