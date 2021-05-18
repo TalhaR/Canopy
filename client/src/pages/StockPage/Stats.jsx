@@ -3,12 +3,12 @@ import React from "react";
 
 const useStyles = makeStyles({
     root: {
-        height: "450px",
-        paddingLeft: "15px",
+        height: "-webkit-fill-available",
+        width: "-webkit-fill-available",
+        padding: "15px 15px",
     },
     title: {
         fontSize: 24,
-        paddingTop: "15px",
     },
 });
 

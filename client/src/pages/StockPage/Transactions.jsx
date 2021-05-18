@@ -88,7 +88,8 @@ const useStyles = makeStyles((theme) => ({
     root: {
         // flexGrow: 1,
         color: "black",
-        height: "450px",
+        height: "-webkit-fill-available",
+        width: "-webkit-fill-available",
         backgroundColor: "white",
     },
     rootPanel: {
