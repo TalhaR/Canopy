@@ -10,6 +10,7 @@ const watchlistsController = require('./watchlists.js');
 const transactionsController = require('./transactions.js');
 const holdingsController = require('./holdings.js');
 const portfoliosController = require('./portfolios.js');
+const portfolioHistoriesController = require('./portfolioHistories.js')
 const stockHistoriesController = require('./stockHistories.js');
 const historiesController = require('./histories.js');
 
@@ -22,7 +23,8 @@ router.use('/watchlists', watchlistsController);
 router.use('/transactions', transactionsController);
 router.use('/holdings', holdingsController);
 router.use('/portfolios', portfoliosController);
-router.use('/stockHistories', stockHistoriesController);
+router.use('/portfolio-histories', portfolioHistoriesController);
+router.use('/stock-histories', stockHistoriesController);
 router.use('/histories', historiesController);
 
 module.exports = router;

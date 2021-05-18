@@ -55,6 +55,10 @@ module.exports = (sequelize, DataTypes) => {
 
         // One-to-One association between User and Portfolio Table
         models.User.hasOne(models.Portfolio);
+
+        // One-to-Many association between User and PortfolioHistory Table
+        // This will add userId to the PortfolioHistory model and table
+        models.User.hasMany(models.PortfolioHistory);
     };
 
     return User;
