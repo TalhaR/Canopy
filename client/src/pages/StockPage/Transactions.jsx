@@ -1,4 +1,3 @@
-import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -10,9 +9,26 @@ import {
     TextField,
     Button,
 } from "@material-ui/core";
-
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
+const request = require('request');
+async function stocksFetch() {
+    return await fetch('http://localhost:8080/api/stocks/GME')
+        .then(response => response.json());
+}
 function TabPanel({ children, value, index, ...other }) {
     const classes = useStyles();
+    // const data =  fetch('http://localhost:8080/api/stocks/GME')
+    //     .then(response => response.json());
+    // var data = stocksFetch();
+    var data = {
+        "id": 1,
+        "ticker": "GME",
+        "name": "Gamestop",
+        "price": 154.69,
+        "createdAt": "2021-05-18T19:20:45.776Z",
+        "updatedAt": "2021-05-18T19:20:45.776Z"
+    };
 
     return (
         <div
@@ -30,7 +46,7 @@ function TabPanel({ children, value, index, ...other }) {
                 >
                     <Box p={2} display="flex" alignItems="center">
                         <Typography variant="body1">
-                            Shares: 
+                            Shares:
                         </Typography>
                         <TextField
                             id="outlined-number"
@@ -45,23 +61,23 @@ function TabPanel({ children, value, index, ...other }) {
                     </Box>
                     <Box p={2} display="flex" alignItems="center">
                         <Typography variant="body1">
-                            Market Price: 
+                            Market Price:
                         </Typography>
                         <Typography variant="h6" >
-                            $123.45
+                            {data.price}
                         </Typography>
                     </Box>
                     <hr />
                     <Box p={2} display="flex" alignItems="center">
                         <Typography variant="body1">
-                            Transaction { value === 0 ? "Cost" : "Credit"}: 
+                            Transaction {value === 0 ? "Cost" : "Credit"}:
                         </Typography>
                         <Typography variant="h6" >
                             $123.45
                         </Typography>
                     </Box>
                     <Box p={1} display="flex" justifyContent="center">
-                        <Button variant="contained" color="primary">
+                        <Button variant="contained" color="primary" onClick={handleClick({ value })}>
                             Submit
                         </Button>
                     </Box>
@@ -75,8 +91,12 @@ function TabPanel({ children, value, index, ...other }) {
             )}
         </div>
     );
-}
 
+}
+function handleClick(value) {
+    console.log("Click submit")
+    console.log(value)
+}
 function a11yProps(index) {
     return {
         id: `transaction-${index}`,
@@ -136,3 +156,24 @@ TabPanel.propTypes = {
 };
 
 export default Transactions;
+
+
+
+function BuyStocks(quantity) {
+    const request = require('request');
+    const [value, setValue] = React.useState(0);
+    const stockId = value;
+    const options = {
+        method: 'POST',
+        url: 'http://localhost:8080/api/holdings/user/2',
+        headers: { 'Content-Type': 'application/json' },
+        body: { stockId, quantity },
+        json: true
+    };
+
+    request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+        console.log(body);
+    });
+
+}

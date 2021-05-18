@@ -1,7 +1,6 @@
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { useEffect } from "react";
-
+import React, { useState, useEffect } from "react";
 import Graph from "../../components/Graph";
 import News from "../../components/News";
 import Transactions from "./Transactions";
@@ -18,8 +17,10 @@ const useStyles = makeStyles((theme) => ({
 const StockPage = () => {
     const classes = useStyles();
     const { ticker } = useParams();
+    // const data = fetch('http://localhost:8080/api/stocks/GME')
+    //     .then(response => response.json());
 
-    useEffect(() => {}, []);
+    useEffect(() => { }, []);
 
     return (
         <div className={classes.root}>
