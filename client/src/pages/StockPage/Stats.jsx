@@ -21,6 +21,11 @@ const Stats = () => {
                 Stats
             </Typography>
             <hr />
+
+            <Typography variant="p">
+                Open
+            </Typography>
+
         </Card>
     );
 };
