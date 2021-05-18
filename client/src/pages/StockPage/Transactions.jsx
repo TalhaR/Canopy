@@ -11,112 +11,15 @@ import {
 } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-const request = require('request');
-
-// class TabPanel extends React.Component {
-//     constructor(props) {
-//         const classes = useStyles();
-//         var Transaction = 0;
-//         super(props);
-//         this.state = { value: 'coconut' };
-
-//         this.handleChange = this.handleChange.bind(this);
-//         this.handleSubmit = this.handleSubmit.bind(this);
-//     }
-// //     const classes = useStyles();
-
-// //     var Transaction = 0;
-
-//     handleChange(event, price) {
-//         Transaction = event.target.value * price
-//         console.log(Transaction)
-//     }
-//     handleChange(event) {
-//         this.setState({ value: event.target.value });
-//     }
-
-//     handleSubmit(event) {
-//         alert('Your favorite flavor is: ' + this.state.value);
-//         event.preventDefault();
-//     }
-
-//     render() {
-//         return (
-//             <div
-//                 role="tabpanel"
-//                 hidden={value !== index}
-//                 id={`transaction-tabpanel-${index}`}
-//                 aria-labelledby={`transaction-tab-${index}`}
-//                 {...other}
-//             >
-//                 {value === index && (
-//                     <form
-//                         className={classes.rootPanel}
-//                         noValidate
-//                         autoComplete="off"
-//                     >
-//                         <Box p={2} display="flex" alignItems="center">
-//                             <Typography variant="body1">
-//                                 Shares:
-//                     </Typography>
-//                             <TextField
-//                                 id="outlined-number"
-//                                 placeholder="0"
-//                                 type="number"
-//                                 InputLabelProps={{
-//                                     shrink: true,
-//                                 }}
-//                                 variant="outlined"
-//                                 required={true}
-//                                 onChange={(e) => {
-//                                     handleChange(e, stockData.price);
-//                                 }}
-//                             />
-//                         </Box>
-//                         <Box p={2} display="flex" alignItems="center">
-//                             <Typography variant="body1">
-//                                 Market Price:
-//                     </Typography>
-//                             <Typography variant="h6" >
-//                                 {stockData.price}
-//                             </Typography>
-//                         </Box>
-//                         <hr />
-//                         <Box p={2} display="flex" alignItems="center">
-//                             <Typography variant="body1">
-//                                 Transaction {value === 0 ? "Cost" : "Credit"}:
-//                     </Typography>
-//                             <Typography variant="h6" >
-//                                 {Transaction}
-//                             </Typography>
-//                         </Box>
-//                         <Box p={1} display="flex" justifyContent="center">
-//                             <Button variant="contained" color="primary" onClick={handleClick({ value })}>
-//                                 Submit
-//                     </Button>
-//                         </Box>
-//                         <hr />
-//                         <Box p={1} display="flex" justifyContent="center">
-//                             <Typography variant="subtitle1">
-//                                 Buying Power: $100,000.00
-//                     </Typography>
-//                         </Box>
-//                     </form>
-//                 )}
-//             </div>
-//         );
-//     }
-// }
 
 function TabPanel({ stockData, children, value, index, ...other }) {
     const classes = useStyles();
+    var [transaction, setTransaction] = useState(0);
+    var [quantity, setQuantity] = useState(0);
 
-    var Transaction = 0;
-    var quantity = 0;
     function handleChange(event, price) {
-        quantity = event.target.value;
-        Transaction = event.target.value * price
-        console.log(Transaction)
+        setQuantity(event.target.value);
+        setTransaction(event.target.value * price)
     }
 
     return (
@@ -165,13 +68,13 @@ function TabPanel({ stockData, children, value, index, ...other }) {
                             Transaction {value === 0 ? "Cost" : "Credit"}:
                         </Typography>
                         <Typography variant="h6" >
-                            {Transaction}
+                            {transaction}
                         </Typography>
                     </Box>
                     <Box p={1} display="flex" justifyContent="center">
                         <Button variant="contained" color="primary"
                             onClick={(e) => {
-                                handleClick(e, stockData.id, quantity);
+                                handleClick(e, stockData.id, quantity, value);
                             }}
                         >
                             Submit
@@ -189,8 +92,13 @@ function TabPanel({ stockData, children, value, index, ...other }) {
     );
 
 }
-function handleClick(event, ticker, quantity) {
-    BuyStocks(ticker, quantity)
+function handleClick(event, ticker, quantity, action) {
+    console.log(ticker, quantity, action)
+    if (action == 0) {
+        BuyStocks(ticker, quantity)
+    } else if (action == 1) {
+        SellStocks(ticker, quantity)
+    }
 }
 function a11yProps(index) {
     return {
@@ -217,7 +125,8 @@ const useStyles = makeStyles((theme) => ({
 const Transactions = ({ data }) => {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
-
+    // var [stockData, setStockData] = useState(0);
+    // setStockData(data.price);
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -234,10 +143,10 @@ const Transactions = ({ data }) => {
                     <Tab label="Sell" {...a11yProps(1)} />
                 </Tabs>
             </AppBar>
-            <TabPanel value={value} stockData={data} Tab={AppBar} index={0}>
+            <TabPanel value={value} stockData={data} index={0}>
                 Buy
             </TabPanel>
-            <TabPanel value={value} index={1}>
+            <TabPanel value={value} stockData={data} index={1}>
                 Sell
             </TabPanel>
         </div>
@@ -252,11 +161,25 @@ TabPanel.propTypes = {
 
 export default Transactions;
 
-
-
 function BuyStocks(ticker, quantity) {
     var options = {
         method: 'POST',
+        url: 'http://localhost:8080/api/holdings/user/2',
+        headers: { 'Content-Type': 'application/json' },
+        data: { stockId: ticker, quantity: quantity }
+    };
+
+    axios.request(options).then(function (response) {
+        console.log(response.data);
+    }).catch(function (error) {
+        console.error(error);
+    });
+
+}
+
+function SellStocks(ticker, quantity) {
+    var options = {
+        method: 'PATCH',
         url: 'http://localhost:8080/api/holdings/user/2',
         headers: { 'Content-Type': 'application/json' },
         data: { stockId: ticker, quantity: quantity }
