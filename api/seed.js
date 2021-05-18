@@ -107,6 +107,13 @@ const STOCKHISTORIES = [
   {id: 33, stockId: 5, date:'2021-05-13T00:00:00.000Z', price: '410.28'},
   {id: 34, stockId: 5, date:'2021-05-14T00:00:00.000Z', price: '416.58'},
   {id: 35, stockId: 5, date:'2021-05-17T00:00:00.000Z', price: '415.52'},
+  {id: 36, stockId: 6, date:'2021-05-07T00:00:00.000Z', price: '252.46'},
+  {id: 37, stockId: 6, date:'2021-05-10T00:00:00.000Z', price: '247.18'},
+  {id: 38, stockId: 6, date:'2021-05-11T00:00:00.000Z', price: '246.23'},
+  {id: 39, stockId: 6, date:'2021-05-12T00:00:00.000Z', price: '239.00'},
+  {id: 40, stockId: 6, date:'2021-05-13T00:00:00.000Z', price: '243.03'},
+  {id: 41, stockId: 6, date:'2021-05-14T00:00:00.000Z', price: '248.15'},
+  {id: 42, stockId: 6, date:'2021-05-17T00:00:00.000Z', price: '245.18'},
 ];
 
 const HISTORIES = [
