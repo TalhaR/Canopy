@@ -4,9 +4,9 @@ import ListElement from "./ListElement";
 
 const useStyles = makeStyles({
     root: {
-        height: "450px",
-        paddingLeft: "15px",
-        paddingRight: "15px",
+        height: "-webkit-fill-available",
+        width: "-webkit-fill-available",
+        padding: "15px 15px",
     },
     title: {
         fontSize: 24,
