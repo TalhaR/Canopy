@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
 router.get('/:stockTicker', async (req, res) => {
     const { stockTicker } = req.params;
     try {
-        const stock = await Stock.findAll({
+        const stock = await Stock.findOne({
             where: { ticker: stockTicker }
         })
         res.json(stock);
