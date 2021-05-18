@@ -10,7 +10,6 @@ const useStyles = makeStyles({
     },
     title: {
         fontSize: 24,
-        paddingTop: "15px",
     },
 });
 
