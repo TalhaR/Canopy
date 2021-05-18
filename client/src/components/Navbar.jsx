@@ -8,6 +8,7 @@ import {
     MenuItem,
     Menu,
     Button,
+    Link,
 } from "@material-ui/core/";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import SearchIcon from "@material-ui/icons/Search";
@@ -84,7 +85,6 @@ const useStyles = makeStyles((theme) => ({
 function Navbar() {
     const classes = useStyles();
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
     const handleMobileMenuClose = () => {
@@ -106,16 +106,19 @@ function Navbar() {
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
-            <MenuItem>
-                <IconButton
-                    aria-label="account of current user"
-                    color="inherit"
-                >
+            <MenuItem component={Link} href="/">
+                <IconButton aria-label="portfolio" color="inherit">
                     <AccountCircle />
                 </IconButton>
-                <p>Account</p>
+                <p>Portfolio</p>
             </MenuItem>
-            <MenuItem>
+            <MenuItem component={Link} href="/resources">
+                <IconButton aria-label="resources" color="inherit">
+                    <AccountCircle />
+                </IconButton>
+                <p>Resources</p>
+            </MenuItem>
+            <MenuItem disabled>
                 <IconButton aria-label="settings" color="inherit">
                     <SettingsIcon />
                 </IconButton>
@@ -151,11 +154,11 @@ function Navbar() {
                     </div>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
-                        <Button color="inherit">
+                        <Button color="inherit" href="/">
                             Portfolio
                         </Button>
-                        <Button color="inherit">
-                            Account
+                        <Button color="inherit" href="/resources">
+                            Resources
                         </Button>
                     </div>
                     <div className={classes.sectionMobile}>

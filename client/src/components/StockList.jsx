@@ -1,10 +1,12 @@
-import { Card, makeStyles, Typography } from '@material-ui/core'
+import { Box, Card, makeStyles, Typography } from '@material-ui/core'
 import React from 'react'
+import ListElement from './ListElement';
 
 const useStyles = makeStyles({
     root: {
-        height: "400px",
-        paddingLeft: "15px"
+        height: "450px",
+        paddingLeft: "15px",
+        paddingRight: "15px"
     },
     title: {
         fontSize: 24,
@@ -12,7 +14,7 @@ const useStyles = makeStyles({
     },
 });
 
-function StockList({ title, stocks, }) {
+const StockList = ({ title, stockList }) => {
     const classes = useStyles();
 
     return (
@@ -21,6 +23,13 @@ function StockList({ title, stocks, }) {
                 { title }
             </Typography>
             <hr /> 
+            <Box spacing={1} >
+                {
+                    stockList.map((stock, i) => {
+                        return <ListElement key={i} ticker={stock} />
+                    })
+                }
+            </Box>
         </Card>
     )
 }

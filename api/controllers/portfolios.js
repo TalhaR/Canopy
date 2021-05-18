@@ -10,9 +10,9 @@ router.get('/', (req, res) => {
 });
 
 // Get the portfolio of a specific user.
-router.get('/user/:userId', (req, res) => {
+router.get('/:userId', (req, res) => {
     const { userId } = req.params;
-    Portfolio.findAll({
+    Portfolio.findOne({
         where: { userId: userId }
     })
         .then(portfolio => {

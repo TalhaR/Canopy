@@ -5,7 +5,7 @@ const { Watchlist } = db;
 
 
 /** Get a list of all the stocks in the user's watchlist. **/
-router.get('/:userId', async(req, res) => {
+router.get('/:userId', async (req, res) => {
     try {
         const { userId } = req.params;
         watchlistObject = await Watchlist.findByPk(userId)
@@ -19,14 +19,13 @@ router.get('/:userId', async(req, res) => {
 });
 
 /** Edit the user's watchlist **/
-router.put('/:userId', async(req, res) => {
+router.put('/:userId', async (req, res) => {
     const { userId } = req.params;
     try {
-        await Watchlist.update({tickers: req.body.tickers}, {where: {userId: userId}});
-        let updatedWatchlist = await Watchlist.findOne({where: {userId: userId}});
+        await Watchlist.update({ tickers: req.body.tickers }, { where: { userId: userId } });
+        let updatedWatchlist = await Watchlist.findOne({ where: { userId: userId } });
         res.status(201).json(updatedWatchlist);
-    }
-    catch(err) {
+    } catch (err) {
         console.log(err);
     }
 });

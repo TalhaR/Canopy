@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../models');
-const { StockHistory } = db;
+const { StockHistory, Stock } = db;
 
 // Get all historical prices.
 router.get('/', (req, res) => {
@@ -10,11 +10,15 @@ router.get('/', (req, res) => {
 });
 
 // Get all historical prices of a stock.
-router.get('/:stockId', async(req, res) => {
-    const { stockId } = req.params;
+router.get('/:ticker', async(req, res) => {
+    const { ticker } = req.params;
     try {
+        const stock = await Stock.findOne({
+            where: { ticker: ticker }
+        })
+
         stockHistories = await StockHistory.findAll({
-            where: { stockId: stockId }
+            where: { stockId: stock["dataValues"]["id"] }
         })
 
         date = [];

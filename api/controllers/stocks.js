@@ -11,7 +11,7 @@ const ash = require('express-async-handler');
 //    GET    /stocks/:id
 //    PUT    /stocks/:id
 //    DELETE /stocks/:id 
-    
+
 // Get a list of all the stocks in the database.
 router.get('/', (req, res) => {
     Stock.findAll({})
@@ -23,13 +23,13 @@ router.get('/', (req, res) => {
 router.get('/:stockTicker', async (req, res) => {
     const { stockTicker } = req.params;
     try {
-        const stock = await Stock.findAll({
-        where: { ticker: stockTicker }
-    })
-    res.json(stock);
+        const stock = await Stock.findOne({
+            where: { ticker: stockTicker }
+        })
+        res.json(stock);
     } catch (error) {
         err => console.log(err);
-        return res.status(404).json({ message: 'Stock not found'});
+        return res.status(404).json({ message: 'Stock not found' });
     }
 });
 
@@ -39,13 +39,13 @@ router.patch('/:stockTicker', async (req, res) => {
     try {
         const { stockTicker } = req.params;
         const updatedStock = await Stock.update(
-            { price: req.body.price},
-            { where: { ticker: stockTicker}, returning: true }
+            { price: req.body.price },
+            { where: { ticker: stockTicker }, returning: true }
         )
-    res.json(updatedStock);
+        res.json(updatedStock);
     } catch (error) {
         err => console.log(err);
-        return res.status(404).json({ message: 'Stock not found'});
+        return res.status(404).json({ message: 'Stock not found' });
     }
 });
 
