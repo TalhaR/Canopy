@@ -19,12 +19,11 @@ const StockPage = () => {
     const classes = useStyles();
     const { ticker } = useParams();
     const [data, setData] = useState([]);
-    // const data = fetch('http://localhost:8080/api/stocks/GME')
-    //     .then(response => response.json());
+
 
     useEffect(() => {
         const getData = async () => {
-            let res = await axios.get("http://localhost:8080/api/stocks/GME")
+            let res = await axios.get("http://localhost:8080/api/stocks/" + ticker)
             if (res.status === 200) {
                 setData(res.data)
             } else {
