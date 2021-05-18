@@ -37,6 +37,10 @@ module.exports = (sequelize, DataTypes) => {
     User.associate = (models) => {
         // associations can be defined here
 
+        // One-to-Many association between User and Watchlist Table
+        // This will add userId to the Watchlist model and table
+        models.User.hasMany(models.Watchlist);
+
         // One-to-Many association between User and Transaction Table
         // This will add userId to the Transaction model and table
         models.User.hasMany(models.Transaction);
@@ -51,6 +55,10 @@ module.exports = (sequelize, DataTypes) => {
 
         // One-to-One association between User and Portfolio Table
         models.User.hasOne(models.Portfolio);
+
+        // One-to-Many association between User and PortfolioHistory Table
+        // This will add userId to the PortfolioHistory model and table
+        models.User.hasMany(models.PortfolioHistory);
     };
 
     return User;

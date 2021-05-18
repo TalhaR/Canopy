@@ -6,9 +6,12 @@ const router = express.Router();
 const appConfigController = require('./appConfig.js');
 const usersController = require('./users.js');
 const stocksController = require('./stocks.js');
+const watchlistsController = require('./watchlists.js');
 const transactionsController = require('./transactions.js');
 const holdingsController = require('./holdings.js');
 const portfoliosController = require('./portfolios.js');
+const portfolioHistoriesController = require('./portfolioHistories.js')
+const stockHistoriesController = require('./stockHistories.js');
 const historiesController = require('./histories.js');
 
 // Mount each controller under a specific route. These
@@ -16,9 +19,12 @@ const historiesController = require('./histories.js');
 router.use('/application-configuration', appConfigController);
 router.use('/users', usersController);
 router.use('/stocks', stocksController);
+router.use('/watchlists', watchlistsController);
 router.use('/transactions', transactionsController);
 router.use('/holdings', holdingsController);
 router.use('/portfolios', portfoliosController);
+router.use('/portfolio-histories', portfolioHistoriesController);
+router.use('/stock-histories', stockHistoriesController);
 router.use('/histories', historiesController);
 
 module.exports = router;

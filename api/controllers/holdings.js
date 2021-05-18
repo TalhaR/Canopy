@@ -88,7 +88,7 @@ router.delete('/user/:userId', (req, res) => {
     })
       .then(() => res.status(200).json("Deleted a holding."))
       .catch(err => console.log(err));
-  });
+});
   
 
 module.exports = router;
