@@ -302,3 +302,141 @@
     }
 ]
 ```
+
+# Get the watchlist of a specific user
+
+**URL** : `http://localhost:8080/api/watchlists/5`
+
+**Method** : `GET`
+
+## Success Response
+
+**Code** : `200 OK`
+
+**Content example**
+
+```json
+{
+	"Watchlist": [
+		"GME",
+		"RBLX",
+		"COIN",
+		"SPY"
+	]
+}
+```
+
+# Edit the watchlist of a specific user
+
+**URL** : `http://localhost:8080/api/watchlists/5`
+
+**Method** : `PUT`
+
+## Success Response
+
+**Code** : `201 CREATED`
+
+**Content example**
+
+```json
+{
+  "id": 5,
+  "tickers": [
+    "VOO",
+    "GME"
+  ],
+  "createdAt": "2021-05-18T02:46:50.813Z",
+  "updatedAt": "2021-05-18T02:49:23.883Z",
+  "userId": 5
+}
+```
+
+# Get the historical portfolio net worth of a user
+
+**URL** : `http://localhost:8080/api/portfolio-histories/1`
+
+**Method** : `GET`
+
+## Success Response
+
+**Code** : `200 OK`
+
+**Content example**
+
+```json
+[
+  {
+    "date": "2021-05-07T00:00:00.000Z",
+    "netWorth": 100000
+  },
+  {
+    "date": "2021-05-10T00:00:00.000Z",
+    "netWorth": 99466.52
+  },
+  {
+    "date": "2021-05-11T00:00:00.000Z",
+    "netWorth": 96852.91
+  },
+  {
+    "date": "2021-05-13T00:00:00.000Z",
+    "netWorth": 94342.28
+  },
+  {
+    "date": "2021-05-14T00:00:00.000Z",
+    "netWorth": 97230.46
+  },
+  {
+    "date": "2021-05-12T00:00:00.000Z",
+    "netWorth": 92293.07
+  },
+  {
+    "date": "2021-05-17T00:00:00.000Z",
+    "netWorth": 97705.33
+  }
+]
+```
+
+# Get the historical data of a stock
+
+**URL** : `http://localhost:8080/api/stock-histories/1`
+
+**Method** : `GET`
+
+## Success Response
+
+**Code** : `200 OK`
+
+**Content example**
+
+```json
+[
+  {
+    "date": "2021-05-07T00:00:00.000Z",
+    "price": 161.11
+  },
+  {
+    "date": "2021-05-10T00:00:00.000Z",
+    "price": 143.22
+  },
+  {
+    "date": "2021-05-11T00:00:00.000Z",
+    "price": 146.92
+  },
+  {
+    "date": "2021-05-12T00:00:00.000Z",
+    "price": 144.79
+  },
+  {
+    "date": "2021-05-13T00:00:00.000Z",
+    "price": 164.5
+  },
+  {
+    "date": "2021-05-14T00:00:00.000Z",
+    "price": 159.92
+  },
+  {
+    "date": "2021-05-17T00:00:00.000Z",
+    "price": 180.6
+  }
+]
+```
