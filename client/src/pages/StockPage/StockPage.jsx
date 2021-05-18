@@ -6,6 +6,7 @@ import News from "../../components/News";
 import Transactions from "./Transactions";
 import Stats from "./Stats";
 import { useParams } from "react-router";
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -17,10 +18,21 @@ const useStyles = makeStyles((theme) => ({
 const StockPage = () => {
     const classes = useStyles();
     const { ticker } = useParams();
+    const [data, setData] = useState([]);
     // const data = fetch('http://localhost:8080/api/stocks/GME')
     //     .then(response => response.json());
 
-    useEffect(() => { }, []);
+    useEffect(() => {
+        const getData = async () => {
+            let res = await axios.get("http://localhost:8080/api/stocks/GME")
+            if (res.status === 200) {
+                setData(res.data)
+            } else {
+                console.log(res.data);
+            }
+        }
+        getData();
+    }, []);
 
     return (
         <div className={classes.root}>
@@ -30,7 +42,7 @@ const StockPage = () => {
                 </Grid>
 
                 <Grid item xs={12} sm={6} md={4}>
-                    <Transactions />
+                    <Transactions data={data} />
                 </Grid>
 
                 <Grid item xs={12} sm={6} md={4}>

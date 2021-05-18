@@ -12,23 +12,112 @@ import {
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 const request = require('request');
-async function stocksFetch() {
-    return await fetch('http://localhost:8080/api/stocks/GME')
-        .then(response => response.json());
-}
-function TabPanel({ children, value, index, ...other }) {
+
+// class TabPanel extends React.Component {
+//     constructor(props) {
+//         const classes = useStyles();
+//         var Transaction = 0;
+//         super(props);
+//         this.state = { value: 'coconut' };
+
+//         this.handleChange = this.handleChange.bind(this);
+//         this.handleSubmit = this.handleSubmit.bind(this);
+//     }
+// //     const classes = useStyles();
+
+// //     var Transaction = 0;
+
+//     handleChange(event, price) {
+//         Transaction = event.target.value * price
+//         console.log(Transaction)
+//     }
+//     handleChange(event) {
+//         this.setState({ value: event.target.value });
+//     }
+
+//     handleSubmit(event) {
+//         alert('Your favorite flavor is: ' + this.state.value);
+//         event.preventDefault();
+//     }
+
+//     render() {
+//         return (
+//             <div
+//                 role="tabpanel"
+//                 hidden={value !== index}
+//                 id={`transaction-tabpanel-${index}`}
+//                 aria-labelledby={`transaction-tab-${index}`}
+//                 {...other}
+//             >
+//                 {value === index && (
+//                     <form
+//                         className={classes.rootPanel}
+//                         noValidate
+//                         autoComplete="off"
+//                     >
+//                         <Box p={2} display="flex" alignItems="center">
+//                             <Typography variant="body1">
+//                                 Shares:
+//                     </Typography>
+//                             <TextField
+//                                 id="outlined-number"
+//                                 placeholder="0"
+//                                 type="number"
+//                                 InputLabelProps={{
+//                                     shrink: true,
+//                                 }}
+//                                 variant="outlined"
+//                                 required={true}
+//                                 onChange={(e) => {
+//                                     handleChange(e, stockData.price);
+//                                 }}
+//                             />
+//                         </Box>
+//                         <Box p={2} display="flex" alignItems="center">
+//                             <Typography variant="body1">
+//                                 Market Price:
+//                     </Typography>
+//                             <Typography variant="h6" >
+//                                 {stockData.price}
+//                             </Typography>
+//                         </Box>
+//                         <hr />
+//                         <Box p={2} display="flex" alignItems="center">
+//                             <Typography variant="body1">
+//                                 Transaction {value === 0 ? "Cost" : "Credit"}:
+//                     </Typography>
+//                             <Typography variant="h6" >
+//                                 {Transaction}
+//                             </Typography>
+//                         </Box>
+//                         <Box p={1} display="flex" justifyContent="center">
+//                             <Button variant="contained" color="primary" onClick={handleClick({ value })}>
+//                                 Submit
+//                     </Button>
+//                         </Box>
+//                         <hr />
+//                         <Box p={1} display="flex" justifyContent="center">
+//                             <Typography variant="subtitle1">
+//                                 Buying Power: $100,000.00
+//                     </Typography>
+//                         </Box>
+//                     </form>
+//                 )}
+//             </div>
+//         );
+//     }
+// }
+
+function TabPanel({ stockData, children, value, index, ...other }) {
     const classes = useStyles();
-    // const data =  fetch('http://localhost:8080/api/stocks/GME')
-    //     .then(response => response.json());
-    // var data = stocksFetch();
-    var data = {
-        "id": 1,
-        "ticker": "GME",
-        "name": "Gamestop",
-        "price": 154.69,
-        "createdAt": "2021-05-18T19:20:45.776Z",
-        "updatedAt": "2021-05-18T19:20:45.776Z"
-    };
+
+    var Transaction = 0;
+    var quantity = 0;
+    function handleChange(event, price) {
+        quantity = event.target.value;
+        Transaction = event.target.value * price
+        console.log(Transaction)
+    }
 
     return (
         <div
@@ -57,6 +146,9 @@ function TabPanel({ children, value, index, ...other }) {
                             }}
                             variant="outlined"
                             required={true}
+                            onChange={(e) => {
+                                handleChange(e, stockData.price);
+                            }}
                         />
                     </Box>
                     <Box p={2} display="flex" alignItems="center">
@@ -64,7 +156,7 @@ function TabPanel({ children, value, index, ...other }) {
                             Market Price:
                         </Typography>
                         <Typography variant="h6" >
-                            {data.price}
+                            {stockData.price}
                         </Typography>
                     </Box>
                     <hr />
@@ -73,11 +165,15 @@ function TabPanel({ children, value, index, ...other }) {
                             Transaction {value === 0 ? "Cost" : "Credit"}:
                         </Typography>
                         <Typography variant="h6" >
-                            $123.45
+                            {Transaction}
                         </Typography>
                     </Box>
                     <Box p={1} display="flex" justifyContent="center">
-                        <Button variant="contained" color="primary" onClick={handleClick({ value })}>
+                        <Button variant="contained" color="primary"
+                            onClick={(e) => {
+                                handleClick(e, stockData.id, quantity);
+                            }}
+                        >
                             Submit
                         </Button>
                     </Box>
@@ -93,9 +189,8 @@ function TabPanel({ children, value, index, ...other }) {
     );
 
 }
-function handleClick(value) {
-    console.log("Click submit")
-    console.log(value)
+function handleClick(event, ticker, quantity) {
+    BuyStocks(ticker, quantity)
 }
 function a11yProps(index) {
     return {
@@ -119,7 +214,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Transactions = () => {
+const Transactions = ({ data }) => {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
 
@@ -139,7 +234,7 @@ const Transactions = () => {
                     <Tab label="Sell" {...a11yProps(1)} />
                 </Tabs>
             </AppBar>
-            <TabPanel value={value} index={0}>
+            <TabPanel value={value} stockData={data} Tab={AppBar} index={0}>
                 Buy
             </TabPanel>
             <TabPanel value={value} index={1}>
@@ -159,21 +254,18 @@ export default Transactions;
 
 
 
-function BuyStocks(quantity) {
-    const request = require('request');
-    const [value, setValue] = React.useState(0);
-    const stockId = value;
-    const options = {
+function BuyStocks(ticker, quantity) {
+    var options = {
         method: 'POST',
         url: 'http://localhost:8080/api/holdings/user/2',
         headers: { 'Content-Type': 'application/json' },
-        body: { stockId, quantity },
-        json: true
+        data: { stockId: ticker, quantity: quantity }
     };
 
-    request(options, function (error, response, body) {
-        if (error) throw new Error(error);
-        console.log(body);
+    axios.request(options).then(function (response) {
+        console.log(response.data);
+    }).catch(function (error) {
+        console.error(error);
     });
 
 }
