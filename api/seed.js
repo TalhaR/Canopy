@@ -36,11 +36,11 @@ const TRANSACTIONS = [
 ];
 
 const PORTFOLIOS = [
-  {id: 1, userId: 1, buyingPower: 8232.21, netWorth: 70000},
-  {id: 2, userId: 2, buyingPower: 15000, netWorth: 23500},
-  {id: 3, userId: 3, buyingPower: 3247, netWorth: 16592},
-  {id: 4, userId: 4, buyingPower: 33629, netWorth: 45200},
-  {id: 5, userId: 5, buyingPower: 76, netWorth: 2522},
+  {id: 1, userId: 1, buyingPower: 8232.21, netWorth: 70000.00},
+  {id: 2, userId: 2, buyingPower: 15000.00, netWorth: 23500.00},
+  {id: 3, userId: 3, buyingPower: 3247.00, netWorth: 16592.00},
+  {id: 4, userId: 4, buyingPower: 33629.00, netWorth: 45200.00},
+  {id: 5, userId: 5, buyingPower: 76.00, netWorth: 2522.00},
 ];
 
 const HOLDINGS = [
@@ -110,21 +110,21 @@ const STOCKHISTORIES = [
 ];
 
 const HISTORIES = [
-  {id: 1, userId: 1, date: '2021-04-10T10:00:00.000Z', netWorth: 73000},
-  {id: 2, userId: 1, date: '2021-04-10T10:15:00.000Z', netWorth: 73005},
-  {id: 3, userId: 1, date: '2021-04-10T10:30:00.000Z', netWorth: 73025},
-  {id: 4, userId: 2, date: '2021-04-10T10:00:00.000Z', netWorth: 23400},
-  {id: 5, userId: 2, date: '2021-04-10T10:15:00.000Z', netWorth: 23500},
-  {id: 6, userId: 2, date: '2021-04-10T10:30:00.000Z', netWorth: 22700},
-  {id: 7, userId: 3, date: '2021-04-10T10:00:00.000Z', netWorth: 18000},
-  {id: 8, userId: 3, date: '2021-04-10T10:15:00.000Z', netWorth: 18500},
-  {id: 9, userId: 3, date: '2021-04-10T10:30:00.000Z', netWorth: 18525},
-  {id: 10, userId: 4, date: '2021-04-10T10:00:00.000Z', netWorth: 45500},
-  {id: 11, userId: 4, date: '2021-04-10T10:15:00.000Z', netWorth: 45020},
-  {id: 12, userId: 4, date: '2021-04-10T10:30:00.000Z', netWorth: 45300},
-  {id: 13, userId: 5, date: '2021-04-10T10:00:00.000Z', netWorth: 2500},
-  {id: 14, userId: 5, date: '2021-04-10T10:15:00.000Z', netWorth: 2555},
-  {id: 15, userId: 5, date: '2021-04-10T10:30:00.000Z', netWorth: 2320},
+  {id: 1, userId: 1, date: '2021-04-10T10:00:00.000Z', netWorth: 73000.00},
+  {id: 2, userId: 1, date: '2021-04-10T10:15:00.000Z', netWorth: 73005.00},
+  {id: 3, userId: 1, date: '2021-04-10T10:30:00.000Z', netWorth: 73025.00},
+  {id: 4, userId: 2, date: '2021-04-10T10:00:00.000Z', netWorth: 23400.00},
+  {id: 5, userId: 2, date: '2021-04-10T10:15:00.000Z', netWorth: 23500.00},
+  {id: 6, userId: 2, date: '2021-04-10T10:30:00.000Z', netWorth: 22700.00},
+  {id: 7, userId: 3, date: '2021-04-10T10:00:00.000Z', netWorth: 18000.00},
+  {id: 8, userId: 3, date: '2021-04-10T10:15:00.000Z', netWorth: 18500.00},
+  {id: 9, userId: 3, date: '2021-04-10T10:30:00.000Z', netWorth: 18525.00},
+  {id: 10, userId: 4, date: '2021-04-10T10:00:00.000Z', netWorth: 45500.00},
+  {id: 11, userId: 4, date: '2021-04-10T10:15:00.000Z', netWorth: 45020.00},
+  {id: 12, userId: 4, date: '2021-04-10T10:30:00.000Z', netWorth: 45300.00},
+  {id: 13, userId: 5, date: '2021-04-10T10:00:00.000Z', netWorth: 2500.00},
+  {id: 14, userId: 5, date: '2021-04-10T10:15:00.000Z', netWorth: 2555.00},
+  {id: 15, userId: 5, date: '2021-04-10T10:30:00.000Z', netWorth: 2320.00},
 ];
 
 const seed = () => {
