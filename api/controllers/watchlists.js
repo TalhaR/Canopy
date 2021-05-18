@@ -7,12 +7,12 @@ const { Watchlist } = db;
 /** Get a list of all the stocks in the user's watchlist. **/
 router.get('/:userId', async(req, res) => {
     try {
-    const { userId } = req.params;
-    watchlistObject = await Watchlist.findByPk(userId)
-    tickersArray = watchlistObject["dataValues"]["tickers"];
-    tickersResponse = {"Watchlist": tickersArray};
+        const { userId } = req.params;
+        watchlistObject = await Watchlist.findByPk(userId)
+        tickersArray = watchlistObject["dataValues"]["tickers"];
+        tickersResponse = {"Watchlist": tickersArray};
 
-    res.json(tickersResponse);
+        res.json(tickersResponse);
     } catch(err) {
         console.log(err);
     }
