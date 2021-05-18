@@ -6,24 +6,23 @@ const useStyles = makeStyles({
         height: "450px",
         paddingLeft: "15px",
     },
-    value: {
+    title: {
         fontSize: 24,
         paddingTop: "15px",
     },
-    change: {},
 });
 
-function News() {
+const Stats = () => {
     const classes = useStyles();
 
     return (
         <Card className={classes.root} variant="outlined">
-            <Typography className={classes.value} variant="h5" component="h2">
-                News
+            <Typography className={classes.title} variant="h5" component="h2">
+                Stats
             </Typography>
             <hr />
         </Card>
     );
-}
+};
 
-export default News;
+export default Stats;

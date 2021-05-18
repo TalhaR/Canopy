@@ -15,14 +15,15 @@ const STOCKS = [
   {id: 3, ticker: 'COIN', name: 'Coinbase', price: 342.18},
   {id: 4, ticker: 'VOO', name: 'Vanguard 500 Index Fund', price: 382.03},
   {id: 5, ticker: 'SPY', name: 'SPDR S&P 500 Trust ETF', price: 415.52},
+  {id: 6, ticker: 'MSFT', name: 'Microsoft Corporation', price: 244.41},
 ];
 
 const WATCHLISTS = [
-  {id: 1, userId: 1, tickers: ["GME", "RBLX"]},
+  {id: 1, userId: 1, tickers: ["GME", "RBLX", "COIN"]},
   {id: 2, userId: 2, tickers: ["VOO"]},
   {id: 3, userId: 3, tickers: ["GME", "COIN", "VOO"]},
   {id: 4, userId: 4, tickers: ["RBLX", "COIN", "SPY"]},
-  {id: 5, userId: 5, tickers: ["GME", "RBLX", "COIN", "SPY"]},
+  {id: 5, userId: 5, tickers: ["GME", "RBLX", "COIN", "SPY"]}
 ];
 
 const TRANSACTIONS = [
@@ -43,12 +44,14 @@ const PORTFOLIOS = [
 ];
 
 const HOLDINGS = [
-  {id: 1, userId: 1, stockId: 1, quantity: 2, portfolioId: 1},
-  {id: 2, userId: 2, stockId: 3, quantity: 3, portfolioId: 2},
-  {id: 3, userId: 3, stockId: 2, quantity: 5, portfolioId: 3},
-  {id: 4, userId: 3, stockId: 3, quantity: 5, portfolioId: 3},
-  {id: 5, userId: 4, stockId: 2, quantity: 2, portfolioId: 4},
-  {id: 6, userId: 5, stockId: 1, quantity: 5, portfolioId: 5},
+  {id: 1, userId: 1, stockId: 6, quantity: 4, portfolioId: 1},
+  {id: 2, userId: 1, stockId: 5, quantity: 5, portfolioId: 1},
+  {id: 3, userId: 1, stockId: 4, quantity: 5, portfolioId: 1},
+  {id: 4, userId: 2, stockId: 3, quantity: 3, portfolioId: 2},
+  {id: 5, userId: 3, stockId: 2, quantity: 5, portfolioId: 3},
+  {id: 6, userId: 3, stockId: 3, quantity: 5, portfolioId: 3},
+  {id: 7, userId: 4, stockId: 2, quantity: 2, portfolioId: 4},
+  {id: 8, userId: 5, stockId: 1, quantity: 5, portfolioId: 5},
 ];
 
 const PORTFOLIOHISTORIES = [
