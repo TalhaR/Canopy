@@ -55,12 +55,12 @@ const HOLDINGS = [
 ];
 
 const PORTFOLIOHISTORIES = [
-  {id: 1, userId: 1, date:'2021-05-07T00:00:00.000Z', netWorth: '100000.00'},
-  {id: 2, userId: 1, date:'2021-05-10T00:00:00.000Z', netWorth: '99466.52'},
-  {id: 3, userId: 1, date:'2021-05-11T00:00:00.000Z', netWorth: '96852.91'},
-  {id: 4, userId: 1, date:'2021-05-12T00:00:00.000Z', netWorth: '92293.07'},
-  {id: 5, userId: 1, date:'2021-05-13T00:00:00.000Z', netWorth: '94342.28'},
-  {id: 6, userId: 1, date:'2021-05-14T00:00:00.000Z', netWorth: '97230.46'},
+  {id: 1, userId: 1, date:'2021-05-11T00:00:00.000Z', netWorth: '100000.00'},
+  {id: 2, userId: 1, date:'2021-05-12T00:00:00.000Z', netWorth: '99466.52'},
+  {id: 3, userId: 1, date:'2021-05-13T00:00:00.000Z', netWorth: '96852.91'},
+  {id: 4, userId: 1, date:'2021-05-14T00:00:00.000Z', netWorth: '92293.07'},
+  {id: 5, userId: 1, date:'2021-05-15T00:00:00.000Z', netWorth: '94342.28'},
+  {id: 6, userId: 1, date:'2021-05-16T00:00:00.000Z', netWorth: '97230.46'},
   {id: 7, userId: 1, date:'2021-05-17T00:00:00.000Z', netWorth: '97705.33'},
   {id: 8, userId: 2, date:'2021-05-07T00:00:00.000Z', netWorth: '100000.00'},
   {id: 9, userId: 2, date:'2021-05-10T00:00:00.000Z', netWorth: '102413.76'},
