@@ -37,6 +37,10 @@ module.exports = (sequelize, DataTypes) => {
     User.associate = (models) => {
         // associations can be defined here
 
+        // One-to-Many association between User and Watchlist Table
+        // This will add userId to the Watchlist model and table
+        models.User.hasMany(models.Watchlist);
+
         // One-to-Many association between User and Transaction Table
         // This will add userId to the Transaction model and table
         models.User.hasMany(models.Transaction);
