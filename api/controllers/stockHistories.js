@@ -16,7 +16,20 @@ router.get('/:stockId', async(req, res) => {
         stockHistories = await StockHistory.findAll({
             where: { stockId: stockId }
         })
-        res.json(stockHistories);
+
+        date = [];
+        price = [];
+        dateAndPrice = [];
+
+        for (i = 0; i < stockHistories.length; i++) {
+            date.push(stockHistories[i]["dataValues"]["date"]);
+            price.push(stockHistories[i]["dataValues"]["price"]);
+        }
+
+        for (i = 0; i < stockHistories.length; i++) {
+            dateAndPrice.push({"date": date[i], "price": price[i]});
+        }
+        res.json(dateAndPrice);
     }
     catch (err) {
         console.log(err);
