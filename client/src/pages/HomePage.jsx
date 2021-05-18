@@ -24,7 +24,7 @@ const HomePage = () => {
         const getHoldings = async () => {
             let res = await axios.get("http://localhost:8080/api/holdings/user/1")
             if (res.status === 200) {
-                setHoldings(res.data.map((s) => s.ticker))
+                setHoldings(res.data)
             } else {
                 console.log(res.data);
             }
@@ -68,7 +68,8 @@ const HomePage = () => {
                 <Grid item xs={12} sm={6} md={4}>
                     <StockList
                         title="Portfolio"
-                        stockList={holdings}
+                        stockList={holdings.map((s) => s.ticker)}
+                        quantities={holdings.map((s) => s.quantity)}
                     />
                 </Grid>
 
