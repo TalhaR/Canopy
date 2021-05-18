@@ -17,8 +17,6 @@ const useStyles = makeStyles({
 const StockList = ({ title, stockList, quantities }) => {
     const classes = useStyles();
 
-    console.log(quantities);
-
     return (
         <Card className={classes.root} variant="outlined">
             <Typography className={classes.title} variant="h5" component="h2">
