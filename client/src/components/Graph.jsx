@@ -1,6 +1,7 @@
 import { Card, makeStyles, Typography } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Chart from 'chart.js/auto';
+const axios = require("axios");
 
 const useStyles = makeStyles({
     root: {
@@ -18,27 +19,53 @@ const useStyles = makeStyles({
     change: {}
 });
 
-const Graph = ({ title, value }) => {
+const Graph = ({ title, value, history }) => {
     const classes = useStyles();
+
+    const [chartValues, setChartValues] = useState([]);  
+
+    useEffect(() => {
+        const getStockHistory = async () => {
+            let res = await axios.get("http://localhost:8080/api/stock-histories/" + title.toUpperCase())
+            if (res.status === 200) {
+                setChartValues(res.data);
+            } else {
+                console.log(res.data);
+            }
+        }
+
+        // if there is a title, we need to queue stock data
+        if (title !== undefined) {
+            getStockHistory();
+        } else {
+            setChartValues(history);
+        }
+    }, [title, value, history])
 
     useEffect(() => {
         // https://www.chartjs.org/docs/latest/configuration/responsive.html
-        const labels = [
-            'Monday',
-            'Tuesday',
-            'Wednesday',
-            'Thursday',
-            'Friday',
-            'Saturday',
-            'Sunday'
-        ];
+        let labels = [1,2,3,4,5,6,7]
+
+        if (chartValues?.length) {
+            if (title === undefined) {
+                chartValues[6]["netWorth"] = value;
+            }
+            const dates = chartValues.map((e) => new Date(e["date"]))
+            labels = dates.map((e) => e.toDateString().substr(0, 3))
+        }
+
+        const y_plots =
+            title === undefined
+                ? chartValues?.map((e) => e["netWorth"])
+                : chartValues?.map((e) => e["price"]);
+
         const data = {
             labels: labels,
             datasets: [{
                 label: '',
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
-                data: [1000, 1050, 1033, 1150, 1200, 1234, 1234.56],
+                backgroundColor: '#3f51b5',
+                borderColor: '#3f50b5',
+                data: y_plots
             }]
         };
 
@@ -56,9 +83,9 @@ const Graph = ({ title, value }) => {
         // chart.canvas.style.height = '400px';
 
         return () => {
-            chart.clear();
+            chart.destroy()
         }
-    }, [])
+    }, [chartValues, value, title])
 
     return (
         <Card className={classes.root} variant="outlined">
