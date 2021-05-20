@@ -43,27 +43,42 @@ const Stats = () => {
             <hr />
 
             <Typography variant="p">
-                Open {stats.open}
+                Open: {stats.open}
             </Typography>
             <hr />
 
             <Typography variant="p">
-                High {stats.high}
+                High: {stats.high}
             </Typography>
             <hr />
 
             <Typography variant="p">
-                Low {stats.low}
+                Low: {stats.low}
             </Typography>
             <hr />
 
             <Typography variant="p">
-                Close {stats.close}
+                Close: {stats.close}
             </Typography>
             <hr />
 
             <Typography variant="p">
-                Volume {stats.volume}
+                Volume: {stats.volume}
+            </Typography>
+            <hr />
+
+            <Typography variant="p">
+                Market Capitalization: {stats.marketCapitalization}
+            </Typography>
+            <hr />
+
+            <Typography variant="p">
+                Price to Earnings Ratio: {stats.priceToEarningsRatio}
+            </Typography>
+            <hr />
+
+            <Typography variant="p">
+                Dividend Yield: {stats.dividendYield}
             </Typography>
             <hr />
 
