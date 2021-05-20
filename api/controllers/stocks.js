@@ -49,22 +49,24 @@ router.patch('/:stockTicker', async (req, res) => {
 });
 
 
-// Query the Polygon.io API for
-// open, close, high, low, volume, market cap, P/E ratio, and dividend yield
-router.get('/:ticker/:date/', async(req, res) => {
+// Query the Polygon.io API to update
+// price, open, close, high, low, volume, market cap, P/E ratio, and dividend yield
+router.put('/:stockTicker/:date/', async(req, res) => {
     try {
-        const { ticker } = req.params;
+        const { stockTicker } = req.params;
         const { date } = req.params;
         const axios = require('axios');
-        let response = await axios.get(`https://api.polygon.io/v1/open-close/${ticker}/${date}?apiKey=YezH1NTxZjofbNK4HCUblp5BvmrMNlLT`)
+        let response = await axios.get(`https://api.polygon.io/v1/open-close/${stockTicker}/${date}?apiKey=YezH1NTxZjofbNK4HCUblp5BvmrMNlLT`)
         let responseData = await response.data;
-        console.log(responseData);
-        res.json(responseData);
+        let updatedStock = await Stock.update(
+            {price: responseData["afterHours"], open: responseData["open"], high: responseData["high"], low: responseData["low"], close: responseData["close"], volume: responseData["volume"]}, 
+            {where: {ticker: stockTicker}, returning: true}
+        );
+        res.json(updatedStock);
     }
     catch(error) {
         console.log(error);
     }
-
 });
 
 module.exports = router;
