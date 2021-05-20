@@ -10,12 +10,12 @@ const USERS = [
 ];
 
 const STOCKS = [
-  {id: 1, ticker: 'GME', name: 'Gamestop', price: 154.69},
-  {id: 2, ticker: 'RBLX', name: 'Roblox', price: 75.85},
-  {id: 3, ticker: 'COIN', name: 'Coinbase', price: 342.18},
-  {id: 4, ticker: 'VOO', name: 'Vanguard 500 Index Fund', price: 382.03},
-  {id: 5, ticker: 'SPY', name: 'SPDR S&P 500 Trust ETF', price: 415.52},
-  {id: 6, ticker: 'MSFT', name: 'Microsoft Corporation', price: 244.41},
+  {id: 1, ticker: 'GME', name: 'Gamestop', price: 154.69, open: 155.21, high: 172.24, low: 148.20, close: 163.67, volume: 1979607},
+  {id: 2, ticker: 'RBLX', name: 'Roblox', price: 75.85, open: 77.83, high: 79.75, low: 68.23, close: 73.83, volume: 8839627},
+  {id: 3, ticker: 'COIN', name: 'Coinbase', price: 342.18, open: 350.23, high: 356.67, low: 339.92, close: 343.74, volume: 9215731},
+  {id: 4, ticker: 'VOO', name: 'Vanguard 500 Index Fund', price: 382.03, open: 383.35, high: 384.15, low: 381.76, close: 382.05, volume: 3530680},
+  {id: 5, ticker: 'SPY', name: 'SPDR S&P 500 Trust ETF', price: 415.52, open: 412.32, high: 417.43, low: 411.69, close: 416.42, volume: 45836725},
+  {id: 6, ticker: 'MSFT', name: 'Microsoft Corporation', price: 244.41, open: 243.78, high: 247.83, low: 242.17, close: 243.95, volume: 12353529},
 ];
 
 const WATCHLISTS = [
