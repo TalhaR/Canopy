@@ -78,7 +78,7 @@ const Stats = () => {
             <hr />
 
             <Typography variant="p">
-                Dividend Yield: {stats.dividendYield}
+                Dividend Yield: {stats.dividendYield}%
             </Typography>
             <hr />
 
