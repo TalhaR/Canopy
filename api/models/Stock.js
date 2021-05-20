@@ -57,6 +57,24 @@ module.exports = (sequelize, DataTypes) => {
                     notEmpty: true,
                 },
             },
+            marketCapitalization: {
+                type: DataTypes.DOUBLE,
+                validate: {
+                    notEmpty: true,
+                },
+            },
+            priceToEarningsRatio: {
+                type: DataTypes.DOUBLE,
+                validate: {
+                    notEmpty: true,
+                },
+            },
+            dividendYield: {
+                type: DataTypes.DOUBLE,
+                validate: {
+                    notEmpty: true,
+                },
+            },
         },
         {
             sequelize,
