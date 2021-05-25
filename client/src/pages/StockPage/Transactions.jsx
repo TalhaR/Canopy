@@ -29,9 +29,6 @@ function TabPanel({ stockData, children, value, index, ...other }) {
             let res = await axios.get("http://localhost:8080/api/portfolios/1")
             if (res.status === 200) {
                 setPortfolio(res.data);
-                console.log(res.data);
-                console.log(portfolio);
-                console.log(portfolio.buyingPower);
             } else {
                 console.log(res.data);
             }
@@ -94,11 +91,7 @@ function TabPanel({ stockData, children, value, index, ...other }) {
                     <Box p={1} display="flex" justifyContent="center">
                         <Button variant="contained" color="primary"
                             onClick={(e) => {
-
-                                handleClick(e, stockData.id, quantity, value, stockData);
-
-                                // handleClick(e, stockData.id, stockData.ticker, quantity, value, transaction, portfolio, setPortfolio);
-
+                                handleClick(e, stockData.id, quantity, value, stockData, transaction, portfolio, setPortfolio);
                             }}
                         >
                             Submit
@@ -117,43 +110,34 @@ function TabPanel({ stockData, children, value, index, ...other }) {
 
 }
 
-function handleClick(event, ticker, quantity, action, data) {
+async function handleClick(event, ticker, quantity, action, data,  transaction, portfolio, setPortfolio) {
     if (quantity > 0) {
-        if (action == 0) {
+        if (action === 0) {
             console.log(ticker, quantity, action, data)
-            stocksTransations(ticker, quantity)
+            stocksTransactions(ticker, quantity)
+            let updatedBuyingPower = portfolio.buyingPower - transaction;
+            await axios.put(`http://localhost:8080/api/portfolios/1`, {buyingPower: updatedBuyingPower}, {headers: {'Content-Type': 'application/json'}} );
+            setPortfolio({buyingPower: updatedBuyingPower});
             alert(`Brought ${quantity} shares of ${data.ticker}!`);
-        } else if (action == 1) {
+        } else if (action === 1) {
             quantity = parseInt(quantity) * (-1);
-            stocksTransations(ticker, quantity)
-            alert(`Sold ${quantity} shares of ${data.ticker}!`);
+            let positiveQuantity = parseInt(quantity) * (-1);
+            stocksTransactions(ticker, quantity);
+            let updatedBuyingPower = portfolio.buyingPower + transaction;
+            await axios.put(`http://localhost:8080/api/portfolios/1`, {buyingPower: updatedBuyingPower}, {headers: {'Content-Type': 'application/json'}} );
+            setPortfolio({buyingPower: updatedBuyingPower});
+            alert(`Sold ${positiveQuantity} shares of ${data.ticker}!`);
             // if (quantity < data.quantity) {
             //     return 0;
             // } else {
             //     console.log(ticker, quantity, action)
-            //     stocksTransations(ticker, quantity)
+            //     stocksTransactions(ticker, quantity)
             // }
         }
         quantity = 0
     }
 }
-// async function handleClick(event, ticker, tickerName, quantity, action, transaction, portfolio, setPortfolio) {
-//     console.log(ticker, quantity, action)
-//     if (action == 0) {
-//         BuyStocks(ticker, quantity);
-//         let updatedBuyingPower = portfolio.buyingPower - transaction;
-//         setPortfolio({buyingPower: updatedBuyingPower});
-//         await axios.put(`http://localhost:8080/api/portfolios/1`, {buyingPower: updatedBuyingPower}, {headers: {'Content-Type': 'application/json'}} );
-//         alert(`Brought ${quantity} shares of ${tickerName}!`);
-//     } else if (action == 1) {
-//         SellStocks(ticker, quantity);
-//         let updatedBuyingPower = portfolio.buyingPower + transaction;
-//         setPortfolio({buyingPower: updatedBuyingPower});
-//         await axios.put(`http://localhost:8080/api/portfolios/1`, {buyingPower: updatedBuyingPower}, {headers: {'Content-Type': 'application/json'}} );
-//         alert(`Sold ${quantity} shares of ${tickerName}!`);
 
-//     }
-// }
 function a11yProps(index) {
     return {
         id: `transaction-${index}`,
@@ -217,7 +201,7 @@ TabPanel.propTypes = {
 
 export default Transactions;
 
-function stocksTransations(ticker, quantity) {
+function stocksTransactions(ticker, quantity) {
     var options = {
         method: 'PATCH',
         url: 'http://localhost:8080/api/holdings/user/1',
