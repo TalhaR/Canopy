@@ -234,6 +234,21 @@
 }
 ```
 
+# Edit a stock holding quantity for a specific user
+
+**URL** : `http://localhost:8080/api/holdings/user/2`
+
+**Method** : `PATCH`
+
+**Data example**
+
+```json
+{
+	"stockId": "3",
+	"quantity": "10" // plus or minus value
+}
+```
+
 ## Success Response
 
 **Code** : `201 CREATED`
