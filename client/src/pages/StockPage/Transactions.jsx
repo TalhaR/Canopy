@@ -92,7 +92,7 @@ function TabPanel({ stockData, children, value, index, ...other }) {
                     <Box p={1} display="flex" justifyContent="center">
                         <Button variant="contained" color="primary"
                             onClick={(e) => {
-                                handleClick(e, stockData.id, quantity, value, transaction, portfolio, setPortfolio);
+                                handleClick(e, stockData.id, stockData.ticker, quantity, value, transaction, portfolio, setPortfolio);
                             }}
                         >
                             Submit
@@ -110,19 +110,20 @@ function TabPanel({ stockData, children, value, index, ...other }) {
     );
 
 }
-async function handleClick(event, ticker, quantity, action, transaction, portfolio, setPortfolio) {
+async function handleClick(event, ticker, tickerName, quantity, action, transaction, portfolio, setPortfolio) {
     console.log(ticker, quantity, action)
     if (action == 0) {
         BuyStocks(ticker, quantity);
         let updatedBuyingPower = portfolio.buyingPower - transaction;
         setPortfolio({buyingPower: updatedBuyingPower});
-        console.log(portfolio.buyingPower);
         await axios.put(`http://localhost:8080/api/portfolios/1`, {buyingPower: updatedBuyingPower}, {headers: {'Content-Type': 'application/json'}} );
+        alert(`Brought ${quantity} shares of ${tickerName}!`);
     } else if (action == 1) {
         SellStocks(ticker, quantity);
         let updatedBuyingPower = portfolio.buyingPower + transaction;
         setPortfolio({buyingPower: updatedBuyingPower});
         await axios.put(`http://localhost:8080/api/portfolios/1`, {buyingPower: updatedBuyingPower}, {headers: {'Content-Type': 'application/json'}} );
+        alert(`Sold ${quantity} shares of ${tickerName}!`);
     }
 }
 function a11yProps(index) {
