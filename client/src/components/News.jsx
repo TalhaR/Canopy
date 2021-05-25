@@ -3,7 +3,9 @@ import React from "react";
 
 const useStyles = makeStyles({
     root: {
-        height: "450px",
+        // height: "450px",
+        minHeight: "400px",
+        width: "-webkit-fill-available",
         paddingLeft: "15px",
     },
     value: {
