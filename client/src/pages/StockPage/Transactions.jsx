@@ -163,8 +163,8 @@ export default Transactions;
 
 function BuyStocks(ticker, quantity) {
     var options = {
-        method: 'POST',
-        url: 'http://localhost:8080/api/holdings/user/2',
+        method: 'PUT',
+        url: 'http://localhost:8080/api/holdings/user/1',
         headers: { 'Content-Type': 'application/json' },
         data: { stockId: ticker, quantity: quantity }
     };
@@ -179,8 +179,8 @@ function BuyStocks(ticker, quantity) {
 
 function SellStocks(ticker, quantity) {
     var options = {
-        method: 'PATCH',
-        url: 'http://localhost:8080/api/holdings/user/2',
+        method: 'PUT',
+        url: 'http://localhost:8080/api/holdings/user/1',
         headers: { 'Content-Type': 'application/json' },
         data: { stockId: ticker, quantity: quantity }
     };
