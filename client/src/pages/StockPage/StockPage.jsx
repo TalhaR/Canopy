@@ -40,14 +40,17 @@ const StockPage = () => {
             <Grid container justify="center" spacing={3}>
                 <Grid item xs={12} md={6}>
                     <Graph title={ticker} value={1234.56} />
-              
                 </Grid>
 
-                <Grid item xs={12} sm={6} md={4} style={{display: "flex"}}>
+                <Grid item xs={12} sm={6} md={4}>
+                    <Transactions data={data} />
+                </Grid>
+
+                <Grid item xs={12} sm={6} md={4}>
                     <Stats />
                 </Grid>
 
-                <Grid item xs={12} md={6} style={{display: "flex"}}>
+                <Grid item xs={12} md={6}>
                     <News />
                 </Grid>
             </Grid>

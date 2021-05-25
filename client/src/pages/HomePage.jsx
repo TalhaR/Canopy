@@ -17,8 +17,8 @@ const HomePage = () => {
     const classes = useStyles();
     const [holdings, setHoldings] = useState([]);
     const [watchList, setWatchList] = useState([]);
-    const [portfolioValue, setPortfolioValue] = useState(0);
-    const [history, setHistory] = useState([]);
+    const [portfolioValue, setPortfolioValue] = useState(0)
+    const [history, setHistory] = useState([])   
 
     useEffect(() => {
         const getHoldings = async () => {
@@ -55,22 +55,17 @@ const HomePage = () => {
         getPortfolioValues()
     }, [])
 
-    useEffect(() => {
-        console.log();
-    }, [])
-
     return (
         <main className={classes.root}>
-            <Grid container justify="center" spacing={3} alignItems="stretch">
+            <Grid container justify="center" spacing={3}>
                 <Grid item xs={12} md={6}>
                     <Graph 
                         value={portfolioValue} 
                         history={history} 
-                        // setCardHeight={setCardHeight}
                     />
                 </Grid>
 
-                <Grid item xs={12} sm={6} md={4} style={{display: "flex"}}>
+                <Grid item xs={12} sm={6} md={4}>
                     <StockList
                         title="Portfolio"
                         stockList={holdings.map((s) => s.ticker)}
@@ -78,14 +73,14 @@ const HomePage = () => {
                     />
                 </Grid>
 
-                <Grid item xs={12} sm={6} md={4} style={{display: "flex"}}>
+                <Grid item xs={12} sm={6} md={4}>
                     <StockList
                         title="Watchlist"
                         stockList={watchList}
                     />
                 </Grid>
 
-                <Grid item xs={12} md={6} style={{display: "flex"}}>
+                <Grid item xs={12} md={6}>
                     <News />
                 </Grid>
             </Grid>

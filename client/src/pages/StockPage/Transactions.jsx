@@ -55,7 +55,7 @@ function TabPanel({ stockData, children, value, index, ...other }) {
                     noValidate
                     autoComplete="off"
                 >
-                    <Box p={1} display="flex" alignItems="center">
+                    <Box p={2} display="flex" alignItems="center">
                         <Typography variant="body1">
                             Shares:
                         </Typography>
@@ -74,7 +74,7 @@ function TabPanel({ stockData, children, value, index, ...other }) {
                             }}
                         />
                     </Box>
-                    <Box p={1} display="flex" alignItems="center">
+                    <Box p={2} display="flex" alignItems="center">
                         <Typography variant="body1">
                             Market Price:
                         </Typography>
@@ -83,7 +83,7 @@ function TabPanel({ stockData, children, value, index, ...other }) {
                         </Typography>
                     </Box>
                     <hr />
-                    <Box p={1} display="flex" alignItems="center">
+                    <Box p={2} display="flex" alignItems="center">
                         <Typography variant="body1">
                             Transaction {value === 0 ? "Cost" : "Credit"}:
                         </Typography>
@@ -165,13 +165,12 @@ const useStyles = makeStyles((theme) => ({
     root: {
         // flexGrow: 1,
         color: "black",
-        height: "-webkit-fill-available",
-        width: "-webkit-fill-available",
+        height: "450px",
         backgroundColor: "white",
     },
     rootPanel: {
         "& .MuiTextField-root": {
-            margin: theme.spacing(0),
+            margin: theme.spacing(1),
             width: "10ch",
         },
     },

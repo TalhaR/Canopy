@@ -4,17 +4,20 @@ import ListElement from "./ListElement";
 
 const useStyles = makeStyles({
     root: {
-        height: "-webkit-fill-available",
-        width: "-webkit-fill-available",
-        padding: "15px 15px",
+        height: "450px",
+        paddingLeft: "15px",
+        paddingRight: "15px",
     },
     title: {
         fontSize: 24,
+        paddingTop: "15px",
     },
 });
 
 const StockList = ({ title, stockList, quantities }) => {
     const classes = useStyles();
+
+    console.log(quantities);
 
     return (
         <Card className={classes.root} variant="outlined">

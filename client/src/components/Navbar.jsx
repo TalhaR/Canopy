@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import {
     AppBar,
@@ -84,9 +84,8 @@ const useStyles = makeStyles((theme) => ({
 
 function Navbar() {
     const classes = useStyles();
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-    const [searchTerm, setSearchTerm] = useState("");
 
     const handleMobileMenuClose = () => {
         setMobileMoreAnchorEl(null);
@@ -151,13 +150,6 @@ function Navbar() {
                                 input: classes.inputInput,
                             }}
                             inputProps={{ "aria-label": "search" }}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            onKeyDown={(e) =>
-                                e.key === "Enter"
-                                    ? (window.location.href =
-                                          "/stocks/" + searchTerm.toUpperCase())
-                                    : null
-                            }
                         />
                     </div>
                     <div className={classes.grow} />
