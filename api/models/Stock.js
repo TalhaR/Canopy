@@ -27,6 +27,54 @@ module.exports = (sequelize, DataTypes) => {
                     notEmpty: true,
                 },
             },
+            open: {
+                type: DataTypes.DOUBLE,
+                validate: {
+                    notEmpty: true,
+                },
+            },
+            high: {
+                type: DataTypes.DOUBLE,
+                validate: {
+                    notEmpty: true,
+                },
+            },
+            low: {
+                type: DataTypes.DOUBLE,
+                validate: {
+                    notEmpty: true,
+                },
+            },
+            close: {
+                type: DataTypes.DOUBLE,
+                validate: {
+                    notEmpty: true,
+                },
+            },
+            volume: {
+                type: DataTypes.INTEGER,
+                validate: {
+                    notEmpty: true,
+                },
+            },
+            marketCapitalization: {
+                type: DataTypes.DOUBLE,
+                validate: {
+                    notEmpty: true,
+                },
+            },
+            priceToEarningsRatio: {
+                type: DataTypes.DOUBLE,
+                validate: {
+                    notEmpty: true,
+                },
+            },
+            dividendYield: {
+                type: DataTypes.DOUBLE,
+                validate: {
+                    notEmpty: true,
+                },
+            },
         },
         {
             sequelize,

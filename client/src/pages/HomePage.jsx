@@ -17,8 +17,8 @@ const HomePage = () => {
     const classes = useStyles();
     const [holdings, setHoldings] = useState([]);
     const [watchList, setWatchList] = useState([]);
-    const [portfolioValue, setPortfolioValue] = useState(0)
-    const [history, setHistory] = useState([])   
+    const [portfolioValue, setPortfolioValue] = useState(0);
+    const [history, setHistory] = useState([]);
 
     useEffect(() => {
         const getHoldings = async () => {
@@ -55,13 +55,18 @@ const HomePage = () => {
         getPortfolioValues()
     }, [])
 
+    useEffect(() => {
+        console.log();
+    }, [])
+
     return (
         <main className={classes.root}>
-            <Grid container justify="center" spacing={3}>
+            <Grid container justify="center" spacing={3} alignItems="stretch">
                 <Grid item xs={12} md={6}>
-                    <Graph 
-                        value={portfolioValue} 
-                        history={history} 
+                    <Graph
+                        value={portfolioValue}
+                        history={history}
+                    // setCardHeight={setCardHeight}
                     />
                 </Grid>
 

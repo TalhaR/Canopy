@@ -6,8 +6,9 @@ const axios = require("axios");
 const useStyles = makeStyles({
     root: {
         // height: "450px",
-        paddingLeft: "15px",
-        paddingTop: "15px",
+        // paddingLeft: "15px",
+        // paddingTop: "15px",
+        padding: "15px 15px"
     },
     title: {
         fontSize: 36,
@@ -65,7 +66,7 @@ const Graph = ({ title, value, history }) => {
                 label: '',
                 backgroundColor: '#3f51b5',
                 borderColor: '#3f50b5',
-                data: y_plots
+                data: y_plots,
             }]
         };
 

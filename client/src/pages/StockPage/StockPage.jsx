@@ -46,11 +46,11 @@ const StockPage = () => {
                     <Transactions data={data} />
                 </Grid>
 
-                <Grid item xs={12} sm={6} md={4}>
+                <Grid item xs={12} sm={6} md={4} >
                     <Stats />
                 </Grid>
 
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={6} >
                     <News />
                 </Grid>
             </Grid>
