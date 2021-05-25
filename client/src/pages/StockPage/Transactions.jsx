@@ -203,7 +203,7 @@ export default Transactions;
 
 function stocksTransactions(ticker, quantity) {
     var options = {
-        method: 'PATCH',
+        method: 'POST',
         url: 'http://localhost:8080/api/holdings/user/1',
         headers: { 'Content-Type': 'application/json' },
         data: { stockId: ticker, quantity: quantity }

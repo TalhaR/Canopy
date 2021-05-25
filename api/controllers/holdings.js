@@ -51,18 +51,41 @@ router.get('/user/:userId', async (req, res) => {
 
 // Add a stock holding for a user.
 router.post('/user/:userId', async (req, res) => {
-    let holdingId = await Holding.count() + 1;
     const { userId } = req.params;
+    let holdingExists = false;
+    let numCount = await Holding.count({where: {userId: userId, stockId: req.body.stockId}});
+    console.log(numCount);
+    if (numCount !== 0) {
+        holdingExists = true;
+    }
+    console.log(holdingExists);
 
-    Holding.create({
-        "id": holdingId,
-        "userId": userId,
-        "portfolioId": userId,
-        "stockId": req.body.stockId,
-        "quantity": req.body.quantity
-    })
-        .then(createdHolding => res.status(200).json(createdHolding))
-        .catch(err => console.log(err));
+    // if the stock already exists in the portfolio, update the quantity
+    if (holdingExists) {
+        try {
+            let stock = await Holding.findOne({ where: { userId: userId, stockId: req.body.stockId } });
+            var updateQuanitity = parseInt(stock.quantity) + parseInt(req.body.quantity);
+            await Holding.update({ "quantity": updateQuanitity }, { where: { userId: userId, stockId: req.body.stockId } });
+            let updatedHolding = await Holding.findOne({ where: { userId: userId, stockId: req.body.stockId } });
+            res.status(201).json(updatedHolding);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    } 
+    // stock doesn't already exist in portfolio, so create a new entry in holdings
+    else {
+        let holdingId = await Holding.count() + 1;
+        Holding.create({
+            "id": holdingId,
+            "userId": userId,
+            "portfolioId": userId,
+            "stockId": req.body.stockId,
+            "quantity": req.body.quantity
+        })
+            .then(createdHolding => res.status(200).json(createdHolding))
+            .catch(err => console.log(err));
+    }
 });
 
 // Patch a stock holding quantity for a user.
