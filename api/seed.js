@@ -36,11 +36,11 @@ const TRANSACTIONS = [
 ];
 
 const PORTFOLIOS = [
-  {id: 1, userId: 1, buyingPower: 8232.21, netWorth: 97705.33},
-  {id: 2, userId: 2, buyingPower: 15000.00, netWorth: 23500.00},
-  {id: 3, userId: 3, buyingPower: 3247.00, netWorth: 16592.00},
-  {id: 4, userId: 4, buyingPower: 33629.00, netWorth: 45200.00},
-  {id: 5, userId: 5, buyingPower: 76.00, netWorth: 2522.00},
+  {id: 1, userId: 1, buyingPower: 95039.48, netWorth: 97705.33},
+  {id: 2, userId: 2, buyingPower: 92389.10, netWorth: 93500.92},
+  {id: 3, userId: 3, buyingPower: 88294.34, netWorth: 105292.77},
+  {id: 4, userId: 4, buyingPower: 94929.95, netWorth: 12259.23},
+  {id: 5, userId: 5, buyingPower: 96304.34, netWorth: 86021.69},
 ];
 
 const HOLDINGS = [
