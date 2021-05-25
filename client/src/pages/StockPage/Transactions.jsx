@@ -136,102 +136,102 @@ function handleClick(event, ticker, quantity, action, data) {
         }
         quantity = 0
     }
-
-    // async function handleClick(event, ticker, tickerName, quantity, action, transaction, portfolio, setPortfolio) {
-    //     console.log(ticker, quantity, action)
-    //     if (action == 0) {
-    //         BuyStocks(ticker, quantity);
-    //         let updatedBuyingPower = portfolio.buyingPower - transaction;
-    //         setPortfolio({buyingPower: updatedBuyingPower});
-    //         await axios.put(`http://localhost:8080/api/portfolios/1`, {buyingPower: updatedBuyingPower}, {headers: {'Content-Type': 'application/json'}} );
-    //         alert(`Brought ${quantity} shares of ${tickerName}!`);
-    //     } else if (action == 1) {
-    //         SellStocks(ticker, quantity);
-    //         let updatedBuyingPower = portfolio.buyingPower + transaction;
-    //         setPortfolio({buyingPower: updatedBuyingPower});
-    //         await axios.put(`http://localhost:8080/api/portfolios/1`, {buyingPower: updatedBuyingPower}, {headers: {'Content-Type': 'application/json'}} );
-    //         alert(`Sold ${quantity} shares of ${tickerName}!`);
-
-    //     }
-    // }
-    function a11yProps(index) {
-        return {
-            id: `transaction-${index}`,
-            "aria-controls": `transaction-panel-${index}`,
-        };
-    }
-
-    const useStyles = makeStyles((theme) => ({
-        root: {
-            // flexGrow: 1,
-            color: "black",
-            height: "450px",
-            backgroundColor: "white",
-        },
-        rootPanel: {
-            "& .MuiTextField-root": {
-                margin: theme.spacing(1),
-                width: "10ch",
-            },
-        },
-    }));
-
-    const Transactions = ({ data }) => {
-        const classes = useStyles();
-        const [value, setValue] = React.useState(0);
-
-        // var [stockData, setStockData] = useState(0);
-        // setStockData(data.price);
-        const handleChange = (event, newValue) => {
-            setValue(newValue);
-        };
-
-        return (
-            <div className={classes.root}>
-                <AppBar position="static">
-                    <Tabs
-                        value={value}
-                        onChange={handleChange}
-                        aria-label="transactions"
-                    >
-                        <Tab label="Buy" {...a11yProps(0)} />
-                        <Tab label="Sell" {...a11yProps(1)} />
-                    </Tabs>
-                </AppBar>
-                <TabPanel value={value} stockData={data} index={0}>
-                    Buy
-            </TabPanel>
-                <TabPanel value={value} stockData={data} index={1}>
-                    Sell
-            </TabPanel>
-            </div>
-        );
-    };
-
-    TabPanel.propTypes = {
-        children: PropTypes.node,
-        index: PropTypes.any.isRequired,
-        value: PropTypes.any.isRequired,
-    };
-
-    export default Transactions;
-
-    function stocksTransations(ticker, quantity) {
-        var options = {
-            method: 'PATCH',
-            url: 'http://localhost:8080/api/holdings/user/1',
-            headers: { 'Content-Type': 'application/json' },
-            data: { stockId: ticker, quantity: quantity }
-        };
-
-        axios.request(options).then(function (response) {
-            console.log(response.data);
-        }).catch(function (error) {
-            console.error(error);
-        });
-
-    }
 }
+// async function handleClick(event, ticker, tickerName, quantity, action, transaction, portfolio, setPortfolio) {
+//     console.log(ticker, quantity, action)
+//     if (action == 0) {
+//         BuyStocks(ticker, quantity);
+//         let updatedBuyingPower = portfolio.buyingPower - transaction;
+//         setPortfolio({buyingPower: updatedBuyingPower});
+//         await axios.put(`http://localhost:8080/api/portfolios/1`, {buyingPower: updatedBuyingPower}, {headers: {'Content-Type': 'application/json'}} );
+//         alert(`Brought ${quantity} shares of ${tickerName}!`);
+//     } else if (action == 1) {
+//         SellStocks(ticker, quantity);
+//         let updatedBuyingPower = portfolio.buyingPower + transaction;
+//         setPortfolio({buyingPower: updatedBuyingPower});
+//         await axios.put(`http://localhost:8080/api/portfolios/1`, {buyingPower: updatedBuyingPower}, {headers: {'Content-Type': 'application/json'}} );
+//         alert(`Sold ${quantity} shares of ${tickerName}!`);
+
+//     }
+// }
+function a11yProps(index) {
+    return {
+        id: `transaction-${index}`,
+        "aria-controls": `transaction-panel-${index}`,
+    };
+}
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        // flexGrow: 1,
+        color: "black",
+        height: "450px",
+        backgroundColor: "white",
+    },
+    rootPanel: {
+        "& .MuiTextField-root": {
+            margin: theme.spacing(1),
+            width: "10ch",
+        },
+    },
+}));
+
+const Transactions = ({ data }) => {
+    const classes = useStyles();
+    const [value, setValue] = React.useState(0);
+
+    // var [stockData, setStockData] = useState(0);
+    // setStockData(data.price);
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+
+    return (
+        <div className={classes.root}>
+            <AppBar position="static">
+                <Tabs
+                    value={value}
+                    onChange={handleChange}
+                    aria-label="transactions"
+                >
+                    <Tab label="Buy" {...a11yProps(0)} />
+                    <Tab label="Sell" {...a11yProps(1)} />
+                </Tabs>
+            </AppBar>
+            <TabPanel value={value} stockData={data} index={0}>
+                Buy
+            </TabPanel>
+            <TabPanel value={value} stockData={data} index={1}>
+                Sell
+            </TabPanel>
+        </div>
+    );
+};
+
+TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.any.isRequired,
+    value: PropTypes.any.isRequired,
+};
+
+export default Transactions;
+
+function stocksTransations(ticker, quantity) {
+    var options = {
+        method: 'PATCH',
+        url: 'http://localhost:8080/api/holdings/user/1',
+        headers: { 'Content-Type': 'application/json' },
+        data: { stockId: ticker, quantity: quantity }
+    };
+
+    axios.request(options).then(function (response) {
+        console.log(response.data);
+    }).catch(function (error) {
+        console.error(error);
+    });
+
+}
+
 // function SellStocks(ticker, quantity) {
 //     var options = {
 //         method: 'PATCH',
