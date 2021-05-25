@@ -23,17 +23,4 @@ router.get('/:userId', (req, res) => {
         });
 });
 
-// Update the portfolio of a specific user.
-router.put('/:userId', async(req, res) => {
-    try {
-        const { userId } = req.params;
-        await Portfolio.update( {buyingPower: req.body.buyingPower } , { where: {userId: userId} });
-        let updatedPortfolio = await Portfolio.findOne( { where: {userId: userId,} } );
-        res.status(201).json(updatedPortfolio);
-    }
-    catch(err) {
-        console.log(err);
-    }
-});
-
 module.exports = router;
