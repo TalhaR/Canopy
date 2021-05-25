@@ -1,3 +1,4 @@
+import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -9,37 +10,9 @@ import {
     TextField,
     Button,
 } from "@material-ui/core";
-import React, { useState, useEffect } from "react";
-import axios from 'axios';
 
-function TabPanel({ stockData, children, value, index, ...other }) {
+function TabPanel({ children, value, index, ...other }) {
     const classes = useStyles();
-    var [transaction, setTransaction] = useState(0);
-    var [quantity, setQuantity] = useState(0);
-
-    const [portfolio, setPortfolio] = useState(0);
-
-    function handleChange(event, price) {
-        setQuantity(event.target.value);
-        setTransaction(event.target.value * price)
-    }
-
-    useEffect(() => {
-        const getPortfolio = async () => {
-            let res = await axios.get("http://localhost:8080/api/portfolios/1")
-            if (res.status === 200) {
-                setPortfolio(res.data);
-                console.log(res.data);
-                console.log(portfolio);
-                console.log(portfolio.buyingPower);
-            } else {
-                console.log(res.data);
-            }
-        }
-
-        getPortfolio();
-    }, [])
-
 
     return (
         <div
@@ -57,41 +30,38 @@ function TabPanel({ stockData, children, value, index, ...other }) {
                 >
                     <Box p={2} display="flex" alignItems="center">
                         <Typography variant="body1">
-                            Shares:
+                            Shares: 
                         </Typography>
                         <TextField
                             id="outlined-number"
                             placeholder="0"
-                            value={quantity}
                             type="number"
                             InputLabelProps={{
                                 shrink: true,
                             }}
                             variant="outlined"
                             required={true}
-                            onChange={(e) => {
-                                handleChange(e, stockData.price);
-                            }}
                         />
                     </Box>
                     <Box p={2} display="flex" alignItems="center">
                         <Typography variant="body1">
-                            Market Price:
+                            Market Price: 
                         </Typography>
                         <Typography variant="h6" >
-                            {stockData.price}
+                            $123.45
                         </Typography>
                     </Box>
                     <hr />
                     <Box p={2} display="flex" alignItems="center">
                         <Typography variant="body1">
-                            Transaction {value === 0 ? "Cost" : "Credit"}:
+                            Transaction { value === 0 ? "Cost" : "Credit"}: 
                         </Typography>
                         <Typography variant="h6" >
-                            {transaction}
+                            $123.45
                         </Typography>
                     </Box>
                     <Box p={1} display="flex" justifyContent="center">
+
                         <Button variant="contained" color="primary"
                             onClick={(e) => {
 
@@ -101,19 +71,23 @@ function TabPanel({ stockData, children, value, index, ...other }) {
 
                             }}
                         >
+
+                        <Button variant="contained" color="primary">
+
                             Submit
                         </Button>
                     </Box>
                     <hr />
                     <Box p={1} display="flex" justifyContent="center">
                         <Typography variant="subtitle1">
-                            Buying Power: {portfolio.buyingPower}
+                            Buying Power: $100,000.00
                         </Typography>
                     </Box>
                 </form>
             )}
         </div>
     );
+
 
 }
 
@@ -136,24 +110,9 @@ function handleClick(event, ticker, quantity, action, data) {
         }
         quantity = 0
     }
-}
-// async function handleClick(event, ticker, tickerName, quantity, action, transaction, portfolio, setPortfolio) {
-//     console.log(ticker, quantity, action)
-//     if (action == 0) {
-//         BuyStocks(ticker, quantity);
-//         let updatedBuyingPower = portfolio.buyingPower - transaction;
-//         setPortfolio({buyingPower: updatedBuyingPower});
-//         await axios.put(`http://localhost:8080/api/portfolios/1`, {buyingPower: updatedBuyingPower}, {headers: {'Content-Type': 'application/json'}} );
-//         alert(`Brought ${quantity} shares of ${tickerName}!`);
-//     } else if (action == 1) {
-//         SellStocks(ticker, quantity);
-//         let updatedBuyingPower = portfolio.buyingPower + transaction;
-//         setPortfolio({buyingPower: updatedBuyingPower});
-//         await axios.put(`http://localhost:8080/api/portfolios/1`, {buyingPower: updatedBuyingPower}, {headers: {'Content-Type': 'application/json'}} );
-//         alert(`Sold ${quantity} shares of ${tickerName}!`);
 
-//     }
-// }
+}
+
 function a11yProps(index) {
     return {
         id: `transaction-${index}`,
@@ -176,12 +135,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Transactions = ({ data }) => {
+const Transactions = () => {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
 
-    // var [stockData, setStockData] = useState(0);
-    // setStockData(data.price);
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -198,10 +155,10 @@ const Transactions = ({ data }) => {
                     <Tab label="Sell" {...a11yProps(1)} />
                 </Tabs>
             </AppBar>
-            <TabPanel value={value} stockData={data} index={0}>
+            <TabPanel value={value} index={0}>
                 Buy
             </TabPanel>
-            <TabPanel value={value} stockData={data} index={1}>
+            <TabPanel value={value} index={1}>
                 Sell
             </TabPanel>
         </div>
@@ -215,36 +172,3 @@ TabPanel.propTypes = {
 };
 
 export default Transactions;
-
-function stocksTransations(ticker, quantity) {
-    var options = {
-        method: 'PATCH',
-        url: 'http://localhost:8080/api/holdings/user/1',
-        headers: { 'Content-Type': 'application/json' },
-        data: { stockId: ticker, quantity: quantity }
-    };
-
-    axios.request(options).then(function (response) {
-        console.log(response.data);
-    }).catch(function (error) {
-        console.error(error);
-    });
-
-}
-
-// function SellStocks(ticker, quantity) {
-//     var options = {
-//         method: 'PATCH',
-//         url: 'http://localhost:8080/api/holdings/user/2',
-//         headers: { 'Content-Type': 'application/json' },
-//         data: { stockId: ticker, quantity: quantity }
-//     };
-
-// function SellStocks(ticker, quantity) {
-//     var options = {
-//         method: 'PUT',
-//         url: 'http://localhost:8080/api/holdings/user/1',
-//         headers: { 'Content-Type': 'application/json' },
-//         data: { stockId: ticker, quantity: -Math.abs(quantity) }
-//     };
-// }
