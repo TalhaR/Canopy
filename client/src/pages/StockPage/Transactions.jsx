@@ -182,7 +182,7 @@ function SellStocks(ticker, quantity) {
         method: 'PUT',
         url: 'http://localhost:8080/api/holdings/user/1',
         headers: { 'Content-Type': 'application/json' },
-        data: { stockId: ticker, quantity: quantity }
+        data: { stockId: ticker, quantity: -Math.abs(quantity) }
     };
 
     axios.request(options).then(function (response) {
