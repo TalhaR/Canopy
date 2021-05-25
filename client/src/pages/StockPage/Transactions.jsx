@@ -16,11 +16,29 @@ function TabPanel({ stockData, children, value, index, ...other }) {
     const classes = useStyles();
     var [transaction, setTransaction] = useState(0);
     var [quantity, setQuantity] = useState(0);
+    const [portfolio, setPortfolio] = useState(0);
 
     function handleChange(event, price) {
         setQuantity(event.target.value);
         setTransaction(event.target.value * price)
     }
+
+    useEffect(() => {
+        const getPortfolio = async () => {
+            let res = await axios.get("http://localhost:8080/api/portfolios/1")
+            if (res.status === 200) {
+                setPortfolio(res.data);
+                console.log(res.data);
+                console.log(portfolio);
+                console.log(portfolio.buyingPower);
+            } else {
+                console.log(res.data);
+            }
+        }
+
+        getPortfolio();
+    }, [])
+
 
     return (
         <div
@@ -74,7 +92,7 @@ function TabPanel({ stockData, children, value, index, ...other }) {
                     <Box p={1} display="flex" justifyContent="center">
                         <Button variant="contained" color="primary"
                             onClick={(e) => {
-                                handleClick(e, stockData.id, quantity, value);
+                                handleClick(e, stockData.id, quantity, value, transaction, portfolio, setPortfolio);
                             }}
                         >
                             Submit
@@ -83,7 +101,7 @@ function TabPanel({ stockData, children, value, index, ...other }) {
                     <hr />
                     <Box p={1} display="flex" justifyContent="center">
                         <Typography variant="subtitle1">
-                            Buying Power: $100,000.00
+                            Buying Power: {portfolio.buyingPower}
                         </Typography>
                     </Box>
                 </form>
@@ -92,12 +110,19 @@ function TabPanel({ stockData, children, value, index, ...other }) {
     );
 
 }
-function handleClick(event, ticker, quantity, action) {
+async function handleClick(event, ticker, quantity, action, transaction, portfolio, setPortfolio) {
     console.log(ticker, quantity, action)
     if (action == 0) {
-        BuyStocks(ticker, quantity)
+        BuyStocks(ticker, quantity);
+        let updatedBuyingPower = portfolio.buyingPower - transaction;
+        setPortfolio({buyingPower: updatedBuyingPower});
+        console.log(portfolio.buyingPower);
+        await axios.put(`http://localhost:8080/api/portfolios/1`, {buyingPower: updatedBuyingPower}, {headers: {'Content-Type': 'application/json'}} );
     } else if (action == 1) {
-        SellStocks(ticker, quantity)
+        SellStocks(ticker, quantity);
+        let updatedBuyingPower = portfolio.buyingPower + transaction;
+        setPortfolio({buyingPower: updatedBuyingPower});
+        await axios.put(`http://localhost:8080/api/portfolios/1`, {buyingPower: updatedBuyingPower}, {headers: {'Content-Type': 'application/json'}} );
     }
 }
 function a11yProps(index) {
@@ -125,6 +150,7 @@ const useStyles = makeStyles((theme) => ({
 const Transactions = ({ data }) => {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
+
     // var [stockData, setStockData] = useState(0);
     // setStockData(data.price);
     const handleChange = (event, newValue) => {
