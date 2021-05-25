@@ -16,15 +16,15 @@ router.get('/', (req, res) => {
 });
 
 // Get all holdings by a user.
-router.get('/user/:userId', async(req, res) => {
+router.get('/user/:userId', async (req, res) => {
     try {
         const { userId } = req.params;
-        holding = await Holding.findAll({ where: { userId: userId }});
+        holding = await Holding.findAll({ where: { userId: userId } });
 
         if (!holding.length) {
             return res.sendStatus(404);
         }
-        
+
         stockId = [];
         tickers = [];
         quantity = [];
@@ -40,17 +40,17 @@ router.get('/user/:userId', async(req, res) => {
         }
 
         for (i = 0; i < stockId.length; i++) {
-            portfolio.push({"ticker": tickers[i], "quantity": quantity[i]});
+            portfolio.push({ "ticker": tickers[i], "quantity": quantity[i] });
         }
         res.json(portfolio);
-        
+
     } catch (err) {
         res.status(404).json("No holdings found for the user.")
     }
 });
 
 // Add a stock holding for a user.
-router.post('/user/:userId', async(req, res) => {
+router.post('/user/:userId', async (req, res) => {
     let holdingId = await Holding.count() + 1;
     const { userId } = req.params;
 
@@ -65,15 +65,29 @@ router.post('/user/:userId', async(req, res) => {
         .catch(err => console.log(err));
 });
 
-// Update an stock holding for a user.
-router.put('/user/:userId', async(req, res) => {
+// Patch a stock holding quantity for a user.
+router.patch('/user/:userId', async (req, res) => {
     try {
         const { userId } = req.params;
-        await Holding.update(req.body, {where: {userId: userId, stockId: req.body.stockId}});
-        let updatedHolding = await Holding.findOne({where: {userId: userId, stockId: req.body.stockId}});
+        let stock = await Holding.findOne({ where: { userId: userId, stockId: req.body.stockId } });
+        var updateQuanitity = parseInt(stock.quantity) + parseInt(req.body.quantity);
+        await Holding.update({ "quantity": updateQuanitity }, { where: { userId: userId, stockId: req.body.stockId } });
+        let updatedHolding = await Holding.findOne({ where: { userId: userId, stockId: req.body.stockId } });
         res.status(201).json(updatedHolding);
     }
-    catch(err) {
+    catch (err) {
+        console.log(err);
+    }
+});
+// Update an stock holding for a user.
+router.put('/user/:userId', async (req, res) => {
+    try {
+        const { userId } = req.params;
+        await Holding.update(req.body, { where: { userId: userId, stockId: req.body.stockId } });
+        let updatedHolding = await Holding.findOne({ where: { userId: userId, stockId: req.body.stockId } });
+        res.status(201).json(updatedHolding);
+    }
+    catch (err) {
         console.log(err);
     }
 });
@@ -81,14 +95,14 @@ router.put('/user/:userId', async(req, res) => {
 /** Delete a stock holding for a user. */
 router.delete('/user/:userId', (req, res) => {
     Holding.destroy({
-      where: {
-        userId: req.params.userId,
-        stockId: req.body.stockId
-      }
+        where: {
+            userId: req.params.userId,
+            stockId: req.body.stockId
+        }
     })
-      .then(() => res.status(200).json("Deleted a holding."))
-      .catch(err => console.log(err));
+        .then(() => res.status(200).json("Deleted a holding."))
+        .catch(err => console.log(err));
 });
-  
+
 
 module.exports = router;

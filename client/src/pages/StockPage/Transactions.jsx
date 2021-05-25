@@ -16,7 +16,7 @@ function TabPanel({ stockData, children, value, index, ...other }) {
     const classes = useStyles();
     var [transaction, setTransaction] = useState(0);
     var [quantity, setQuantity] = useState(0);
-
+    // setQuantity(0);
     function handleChange(event, price) {
         setQuantity(event.target.value);
         setTransaction(event.target.value * price)
@@ -43,6 +43,7 @@ function TabPanel({ stockData, children, value, index, ...other }) {
                         <TextField
                             id="outlined-number"
                             placeholder="0"
+                            value={quantity}
                             type="number"
                             InputLabelProps={{
                                 shrink: true,
@@ -74,7 +75,7 @@ function TabPanel({ stockData, children, value, index, ...other }) {
                     <Box p={1} display="flex" justifyContent="center">
                         <Button variant="contained" color="primary"
                             onClick={(e) => {
-                                handleClick(e, stockData.id, quantity, value);
+                                handleClick(e, stockData.id, quantity, value, {});
                             }}
                         >
                             Submit
@@ -92,12 +93,23 @@ function TabPanel({ stockData, children, value, index, ...other }) {
     );
 
 }
-function handleClick(event, ticker, quantity, action) {
-    console.log(ticker, quantity, action)
-    if (action == 0) {
-        BuyStocks(ticker, quantity)
-    } else if (action == 1) {
-        SellStocks(ticker, quantity)
+function handleClick(event, ticker, quantity, action, data) {
+    if (quantity > 0) {
+        if (action == 0) {
+            console.log(ticker, quantity, action)
+            stocksTransations(ticker, quantity)
+        } else if (action == 1) {
+            quantity = parseInt(quantity) * (-1);
+            stocksTransations(ticker, quantity)
+            // if (quantity < data.quantity) {
+            //     return 0;
+            // } else {
+            //     console.log(ticker, quantity, action)
+            //     stocksTransations(ticker, quantity)
+            // }
+        }
+        quantity = 0
+
     }
 }
 function a11yProps(index) {
@@ -161,26 +173,10 @@ TabPanel.propTypes = {
 
 export default Transactions;
 
-function BuyStocks(ticker, quantity) {
-    var options = {
-        method: 'POST',
-        url: 'http://localhost:8080/api/holdings/user/2',
-        headers: { 'Content-Type': 'application/json' },
-        data: { stockId: ticker, quantity: quantity }
-    };
-
-    axios.request(options).then(function (response) {
-        console.log(response.data);
-    }).catch(function (error) {
-        console.error(error);
-    });
-
-}
-
-function SellStocks(ticker, quantity) {
+function stocksTransations(ticker, quantity) {
     var options = {
         method: 'PATCH',
-        url: 'http://localhost:8080/api/holdings/user/2',
+        url: 'http://localhost:8080/api/holdings/user/1',
         headers: { 'Content-Type': 'application/json' },
         data: { stockId: ticker, quantity: quantity }
     };
@@ -192,3 +188,19 @@ function SellStocks(ticker, quantity) {
     });
 
 }
+
+// function SellStocks(ticker, quantity) {
+//     var options = {
+//         method: 'PATCH',
+//         url: 'http://localhost:8080/api/holdings/user/2',
+//         headers: { 'Content-Type': 'application/json' },
+//         data: { stockId: ticker, quantity: quantity }
+//     };
+
+//     axios.request(options).then(function (response) {
+//         console.log(response.data);
+//     }).catch(function (error) {
+//         console.error(error);
+//     });
+
+// }
