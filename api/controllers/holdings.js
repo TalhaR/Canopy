@@ -83,7 +83,7 @@ router.patch('/user/:userId', async (req, res) => {
 router.put('/user/:userId', async (req, res) => {
     try {
         const { userId } = req.params;
-        await Holding.update(req.body, { where: { userId: userId, stockId: req.body.stockId } });
+        await Holding.increment('quantity', { by: req.body.quantity, where: { userId: userId, stockId: req.body.stockId } });
         let updatedHolding = await Holding.findOne({ where: { userId: userId, stockId: req.body.stockId } });
         res.status(201).json(updatedHolding);
     }
