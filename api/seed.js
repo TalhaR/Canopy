@@ -39,7 +39,7 @@ const PORTFOLIOS = [
   {id: 1, userId: 1, buyingPower: 95039.48, netWorth: 97705.33},
   {id: 2, userId: 2, buyingPower: 92389.10, netWorth: 93500.92},
   {id: 3, userId: 3, buyingPower: 88294.34, netWorth: 105292.77},
-  {id: 4, userId: 4, buyingPower: 94929.95, netWorth: 12259.23},
+  {id: 4, userId: 4, buyingPower: 94929.95, netWorth: 122259.23},
   {id: 5, userId: 5, buyingPower: 96304.34, netWorth: 86021.69},
 ];
 
