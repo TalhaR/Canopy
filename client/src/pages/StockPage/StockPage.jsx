@@ -24,9 +24,7 @@ const StockPage = () => {
     useEffect(() => {
         const getData = async () => {
             let res = await axios.get("http://localhost:8080/api/stocks/" + ticker)
-            res.ticker = ticker;
             if (res.status === 200) {
-                // console.log(res.data);
                 setData(res.data)
             } else {
                 console.log(res.data);

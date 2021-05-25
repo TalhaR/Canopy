@@ -95,7 +95,7 @@ function TabPanel({ stockData, children, value, index, ...other }) {
                         <Button variant="contained" color="primary"
                             onClick={(e) => {
 
-                                handleClick(e, stockData.id, quantity, value, stockData);
+                                handleClick(e, stockData.id, quantity, value, {});
 
                                 // handleClick(e, stockData.id, stockData.ticker, quantity, value, transaction, portfolio, setPortfolio);
 
@@ -120,13 +120,13 @@ function TabPanel({ stockData, children, value, index, ...other }) {
 function handleClick(event, ticker, quantity, action, data) {
     if (quantity > 0) {
         if (action == 0) {
-            console.log(ticker, quantity, action, data)
+            console.log(ticker, quantity, action)
             stocksTransations(ticker, quantity)
-            alert(`Brought ${quantity} shares of ${data.ticker}!`);
+            alert(`Brought ${quantity} shares of ${ticker}!`);
         } else if (action == 1) {
             quantity = parseInt(quantity) * (-1);
             stocksTransations(ticker, quantity)
-            alert(`Sold ${quantity} shares of ${data.ticker}!`);
+            alert(`Sold ${quantity} shares of ${ticker}!`);
             // if (quantity < data.quantity) {
             //     return 0;
             // } else {
