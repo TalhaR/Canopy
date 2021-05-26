@@ -26,28 +26,27 @@ const StockPage = () => {
             let res = await axios.get("http://localhost:8080/api/stocks/" + ticker)
             res.ticker = ticker;
             if (res.status === 200) {
-                // console.log(res.data);
                 setData(res.data)
             } else {
                 console.log(res.data);
             }
         }
         getData();
-    }, []);
+    }, [ticker]);
 
     return (
         <div className={classes.root}>
             <Grid container justify="center" spacing={3}>
                 <Grid item xs={12} md={6}>
-                    <Graph title={ticker} value={1234.56} />
+                    <Graph title={ticker} />
                 </Grid>
 
-                <Grid item xs={12} sm={6} md={4}>
+                <Grid item xs={12} sm={6} md={4} style={{ display: "flex" }}>
                     <Transactions data={data} />
                 </Grid>
 
                 <Grid item xs={12} sm={6} md={4} style={{ display: "flex" }}>
-                    <Stats />
+                    <Stats ticker={ticker} />
                 </Grid>
 
                 <Grid item xs={12} md={6} style={{ display: "flex" }}>
