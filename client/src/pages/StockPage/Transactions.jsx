@@ -165,8 +165,6 @@ const Transactions = ({ data }) => {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
 
-    // var [stockData, setStockData] = useState(0);
-    // setStockData(data.price);
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };

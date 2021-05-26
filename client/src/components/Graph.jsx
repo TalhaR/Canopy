@@ -81,8 +81,6 @@ const Graph = ({ title, value, history }) => {
             document.getElementById("chart"), config
         )
 
-        // chart.canvas.style.height = '400px';
-
         return () => {
             chart.destroy()
         }
@@ -94,7 +92,7 @@ const Graph = ({ title, value, history }) => {
                 { title }
             </Typography>}
             <Typography className={classes.value} variant="h5" component="h2">
-                ${value}
+                ${value || (chartValues[6] && chartValues[6]["price"])}
             </Typography>
             <hr />
             <div style={{position: "relative"}}>
