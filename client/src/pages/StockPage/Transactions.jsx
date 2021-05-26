@@ -85,7 +85,7 @@ function TabPanel({ stockData, children, value, index, ...other }) {
                             Transaction {value === 0 ? "Cost" : "Credit"}:
                         </Typography>
                         <Typography variant="h6" >
-                            {transaction}
+                            {(Math.round(transaction * 100) / 100).toFixed(2)}
                         </Typography>
                     </Box>
                     <Box p={1} display="flex" justifyContent="center">
@@ -100,7 +100,7 @@ function TabPanel({ stockData, children, value, index, ...other }) {
                     <hr />
                     <Box p={1} display="flex" justifyContent="center">
                         <Typography variant="subtitle1">
-                            Buying Power: {portfolio.buyingPower}
+                            Buying Power: {(Math.round(portfolio.buyingPower * 100) / 100).toFixed(2)}
                         </Typography>
                     </Box>
                 </form>
