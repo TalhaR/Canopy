@@ -55,10 +55,6 @@ const HomePage = () => {
         getPortfolioValues()
     }, [])
 
-    useEffect(() => {
-        console.log();
-    }, [])
-
     return (
         <main className={classes.root}>
             <Grid container justify="center" spacing={3} alignItems="stretch">

@@ -24,7 +24,6 @@ const StockPage = () => {
     useEffect(() => {
         const getData = async () => {
             let res = await axios.get("http://localhost:8080/api/stocks/" + ticker)
-            res.ticker = ticker;
             if (res.status === 200) {
                 setData(res.data)
             } else {
@@ -50,7 +49,7 @@ const StockPage = () => {
                 </Grid>
 
                 <Grid item xs={12} md={6} style={{ display: "flex" }}>
-                    <News />
+                    <News topic={ticker} />
                 </Grid>
             </Grid>
         </div>
