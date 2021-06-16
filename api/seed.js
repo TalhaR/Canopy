@@ -135,7 +135,7 @@ const HISTORIES = [
 ];
 
 const seed = () => {
-  return db.sequelize.sync({force: true})
+  return db.sequelize.sync({force: false})
     .then(() => {
       // Create all the entries
       let userPromises = USERS.map(u => User.create(u));
