@@ -26,7 +26,7 @@ function TabPanel({ stockData, children, value, index, ...other }) {
 
     useEffect(() => {
         const getPortfolio = async () => {
-            let res = await axios.get("http://localhost:8080/api/portfolios/1")
+            let res = await axios.get("api/portfolios/1")
             if (res.status === 200) {
                 setPortfolio(res.data);
             } else {
@@ -116,7 +116,7 @@ async function handleClick(event, ticker, quantity, action, data,  transaction, 
             console.log(ticker, quantity, action, data)
             stocksTransactions(ticker, quantity)
             let updatedBuyingPower = portfolio.buyingPower - transaction;
-            await axios.put(`http://localhost:8080/api/portfolios/1`, {buyingPower: updatedBuyingPower}, {headers: {'Content-Type': 'application/json'}} );
+            await axios.put(`api/portfolios/1`, {buyingPower: updatedBuyingPower}, {headers: {'Content-Type': 'application/json'}} );
             setPortfolio({buyingPower: updatedBuyingPower});
             alert(`Brought ${quantity} shares of ${data.ticker}!`);
         } else if (action === 1) {
@@ -124,7 +124,7 @@ async function handleClick(event, ticker, quantity, action, data,  transaction, 
             let positiveQuantity = parseInt(quantity) * (-1);
             stocksTransactions(ticker, quantity);
             let updatedBuyingPower = portfolio.buyingPower + transaction;
-            await axios.put(`http://localhost:8080/api/portfolios/1`, {buyingPower: updatedBuyingPower}, {headers: {'Content-Type': 'application/json'}} );
+            await axios.put(`api/portfolios/1`, {buyingPower: updatedBuyingPower}, {headers: {'Content-Type': 'application/json'}} );
             setPortfolio({buyingPower: updatedBuyingPower});
             alert(`Sold ${positiveQuantity} shares of ${data.ticker}!`);
             // if (quantity < data.quantity) {
@@ -202,7 +202,7 @@ export default Transactions;
 function stocksTransactions(ticker, quantity) {
     var options = {
         method: 'POST',
-        url: 'http://localhost:8080/api/holdings/user/1',
+        url: 'api/holdings/user/1',
         headers: { 'Content-Type': 'application/json' },
         data: { stockId: ticker, quantity: quantity }
     };
@@ -218,7 +218,7 @@ function stocksTransactions(ticker, quantity) {
 // function SellStocks(ticker, quantity) {
 //     var options = {
 //         method: 'PATCH',
-//         url: 'http://localhost:8080/api/holdings/user/2',
+//         url: 'api/holdings/user/2',
 //         headers: { 'Content-Type': 'application/json' },
 //         data: { stockId: ticker, quantity: quantity }
 //     };
@@ -226,7 +226,7 @@ function stocksTransactions(ticker, quantity) {
 // function SellStocks(ticker, quantity) {
 //     var options = {
 //         method: 'PUT',
-//         url: 'http://localhost:8080/api/holdings/user/1',
+//         url: 'api/holdings/user/1',
 //         headers: { 'Content-Type': 'application/json' },
 //         data: { stockId: ticker, quantity: -Math.abs(quantity) }
 //     };

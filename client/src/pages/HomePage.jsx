@@ -22,7 +22,7 @@ const HomePage = () => {
 
     useEffect(() => {
         const getHoldings = async () => {
-            let res = await axios.get("http://localhost:8080/api/holdings/user/1")
+            let res = await axios.get("api/holdings/user/1")
             if (res.status === 200) {
                 setHoldings(res.data)
             } else {
@@ -31,7 +31,7 @@ const HomePage = () => {
         }
 
         const getWatchList = async () => {
-            let res = await axios.get("http://localhost:8080/api/watchlists/1")
+            let res = await axios.get("api/watchlists/1")
             if (res.status === 200) {
                 setWatchList(res.data["Watchlist"])
             } else {
@@ -40,8 +40,8 @@ const HomePage = () => {
         }
 
         const getPortfolioValues = async () => {
-            let res1 = await axios.get("http://localhost:8080/api/portfolios/1")
-            let res2 = await axios.get("http://localhost:8080/api/portfolio-histories/1")
+            let res1 = await axios.get("api/portfolios/1")
+            let res2 = await axios.get("api/portfolio-histories/1")
             if (res1.status === 200) {
                 setPortfolioValue((Math.round(res1.data["netWorth"] * 100) / 100).toFixed(2))
                 setHistory(res2.data);
