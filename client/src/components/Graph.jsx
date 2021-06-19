@@ -27,7 +27,7 @@ const Graph = ({ title, value, history }) => {
 
     useEffect(() => {
         const getStockHistory = async () => {
-            let res = await axios.get("http://localhost:8080/api/stock-histories/" + title.toUpperCase())
+            let res = await axios.get("/api/stock-histories/" + title.toUpperCase())
             if (res.status === 200) {
                 setChartValues(res.data);
             } else {

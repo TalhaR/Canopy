@@ -19,7 +19,7 @@ const Stats = ({ ticker }) => {
 
     useEffect(() => {
         const getStats = async () => {
-            let res = await axios.get(`http://localhost:8080/api/stocks/${ticker}`);
+            let res = await axios.get(`api/stocks/${ticker}`);
             if (res.status === 200) {
                 setStats(res.data);
             } else {
