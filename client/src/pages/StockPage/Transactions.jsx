@@ -26,6 +26,11 @@ function TabPanel({ stockData, children, value, index, ...other }) {
 
     useEffect(() => {
         const getPortfolio = async () => {
+            if (window.location.origin === "http://localhost:3000") {
+                axios.defaults.baseURL = "http://localhost:8080"; // development address
+            } else {
+            axios.defaults.baseURL = window.location.origin; // production address
+            }    
             let res = await axios.get("api/portfolios/1")
             if (res.status === 200) {
                 setPortfolio(res.data);
