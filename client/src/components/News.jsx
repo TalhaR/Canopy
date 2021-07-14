@@ -62,9 +62,10 @@ const News = ({ topic }) => {
     useEffect(() => {
         const getNews = async () => {
             const q = topic ?? "Stocks"
-            console.log(q);
+            let date = new Date();
+            let currentDate = date.getFullYear()+ '-' + (date.getMonth()+1) + '-' + date.getDate();
             let res = await axios.get(
-                `https://newsapi.org/v2/everything?q=${q}&from=2021-05-26&sortBy=popularity&apiKey=${config.NEWS_KEY}`
+                `https://newsapi.org/v2/everything?q=${q}&from=${currentDate}&sortBy=popularity&apiKey=${config.NEWS_KEY}`
             );
             if (res.status === 200) {
                 // setStories([res.data.articles[0], res.data.articles[1], res.data.articles[2]]);
