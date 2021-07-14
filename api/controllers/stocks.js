@@ -87,45 +87,50 @@ router.put('/:stockTicker/', async(req, res) => {
         formattedDates = Last15Days();
         console.log(formattedDates);
 
-        twoDates = [formattedDates[0], formattedDates[1]];
-        console.log(twoDates);
+        threeDates = [formattedDates[0], formattedDates[1], formattedDates[2]];
+        console.log(threeDates);
 
         const axios = require('axios');
         resultData = [];
-        twoDates.forEach( async (daysDate) => {
-            let response = await axios.get(`https://api.polygon.io/v1/open-close/${stockTicker}/${daysDate}?apiKey=YezH1NTxZjofbNK4HCUblp5BvmrMNlLT`)
-            // if(response.status === 429) {
-            //     await delay(70000);
+        getPrices = async () => {
+            let id = await StockHistory.count() + 1;
+            for(let i = 0; i < threeDates.length; i++) {
+                let response = await axios.get(`https://api.polygon.io/v1/open-close/${stockTicker}/${threeDates[i]}?apiKey=YezH1NTxZjofbNK4HCUblp5BvmrMNlLT`)
+                // if(response.status === 429) {
+                //     await delay(70000);
 
-            // }
-            // if(response.status === 400) {
-            //     return;
-            // }
-            // response = await axios.get(`https://api.polygon.io/v1/open-close/${stockTicker}/${daysDate}?apiKey=YezH1NTxZjofbNK4HCUblp5BvmrMNlLT`)
-            let responseData = await response.data;
-            if (responseData["status"] == "OK") {
-                console.log(responseData);
-                let id = await StockHistory.count() + 1;
-                console.log(id);
-                let dateObject = new Date(responseData["from"]);
-                let price = parseFloat(responseData["close"]);
-                let stockId = req.body.stockId;
+                // }
+                // if(response.status === 400) {
+                //     return;
+                // }
+                // response = await axios.get(`https://api.polygon.io/v1/open-close/${stockTicker}/${daysDate}?apiKey=YezH1NTxZjofbNK4HCUblp5BvmrMNlLT`)
+                let responseData = await response.data;
+                if (responseData["status"] == "OK") {
+                    let dateObject = new Date(responseData["from"]);
+                    let price = parseFloat(responseData["close"]);
+                    let stockId = req.body.stockId;
 
-                resultData.push({"id": id, "date": dateObject, "price": price, "stockId": stockId})
+                    // if the date already exists as an entry in the stock history database, don't add
+                    if ( await StockHistory.findOne({where: { date: new Date(responseData["from"]) }}) === null ) {
+                        resultData.push({"id": id, "date": dateObject, "price": price, "stockId": stockId})
+                    }
+                }
+                id++;
             }
             console.log(resultData);
+
+            StockHistory.bulkCreate(
+                resultData, {returning: true, ignoreDuplicates: true}
+            );
             // let updatedHistoricalStockPrices = await stockHistories.create(
             //     {date: responseData["from"], price: responseData["price"]},
             //     {where: {ticker: stockTicker}, returning: true}
             // );
-        })
-        // console.log(resultData);
+        }
 
-        StockHistory.bulkCreate(
-            resultData, {returning: true}
-        );
+        getPrices();
 
-        res.send("Success")
+        res.json("Added historical prices to database")
 
         // res.json(updatedHistoricalStockPrices);
 
