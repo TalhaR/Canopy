@@ -87,11 +87,12 @@ router.put('/:stockTicker/', async(req, res) => {
         formattedDates = Last15Days();
         console.log(formattedDates);
 
-        firstDate = [formattedDates[0]];
-        console.log(firstDate);
+        twoDates = [formattedDates[0], formattedDates[1]];
+        console.log(twoDates);
 
         const axios = require('axios');
-        firstDate.forEach( async (daysDate) => {
+        resultData = [];
+        twoDates.forEach( async (daysDate) => {
             let response = await axios.get(`https://api.polygon.io/v1/open-close/${stockTicker}/${daysDate}?apiKey=YezH1NTxZjofbNK4HCUblp5BvmrMNlLT`)
             // if(response.status === 429) {
             //     await delay(70000);
@@ -104,23 +105,27 @@ router.put('/:stockTicker/', async(req, res) => {
             let responseData = await response.data;
             if (responseData["status"] == "OK") {
                 console.log(responseData);
-                console.log(responseData["from"]);
-                console.log(responseData["close"]);
                 let id = await StockHistory.count() + 1;
+                console.log(id);
                 let dateObject = new Date(responseData["from"]);
-                let price = parseFloat(responseData["close"])
+                let price = parseFloat(responseData["close"]);
+                let stockId = req.body.stockId;
 
-                let updatedHistoricalStockPrices = StockHistory.create(
-                    {"id": id, "date": dateObject, "price": price, "stockId": req.body.stockId},
-                    {where: {ticker: stockTicker}, returning: true}
-                );
-                res.json(updatedHistoricalStockPrices);
+                resultData.push({"id": id, "date": dateObject, "price": price, "stockId": stockId})
             }
+            console.log(resultData);
             // let updatedHistoricalStockPrices = await stockHistories.create(
             //     {date: responseData["from"], price: responseData["price"]},
             //     {where: {ticker: stockTicker}, returning: true}
             // );
         })
+        // console.log(resultData);
+
+        StockHistory.bulkCreate(
+            resultData, {returning: true}
+        );
+
+        res.send("Success")
 
         // res.json(updatedHistoricalStockPrices);
 
