@@ -57,10 +57,10 @@ router.put('/:stockTicker/', async(req, res) => {
         // const { date } = req.params;
 
         // query for last 15 weekdays in MM-DD-YYYY format
-        function Last15Days () {
+        function Last10Days () {
             let result = [];
             let i = 1;
-            while(result.length < 15) {
+            while(result.length < 10) {
                 let d = new Date();
                 d.setDate(d.getDate() - i);
                 if (d.getDay() !== 6 && d.getDay() !== 0) {
@@ -84,38 +84,35 @@ router.put('/:stockTicker/', async(req, res) => {
             return(result);
         }
         
-        formattedDates = Last15Days();
+        formattedDates = Last10Days();
         console.log(formattedDates);
 
-        threeDates = [formattedDates[0], formattedDates[1], formattedDates[2]];
-        console.log(threeDates);
+        fiveDates = formattedDates.slice(0, 5);
+        console.log(fiveDates);
 
         const axios = require('axios');
         resultData = [];
         getPrices = async () => {
             let id = await StockHistory.count() + 1;
-            for(let i = 0; i < threeDates.length; i++) {
-                let response = await axios.get(`https://api.polygon.io/v1/open-close/${stockTicker}/${threeDates[i]}?apiKey=YezH1NTxZjofbNK4HCUblp5BvmrMNlLT`)
-                // if(response.status === 429) {
-                //     await delay(70000);
+            for(let i = 0; i < fiveDates.length; i++) {
+                await ( async function(i) {
 
-                // }
-                // if(response.status === 400) {
-                //     return;
-                // }
-                // response = await axios.get(`https://api.polygon.io/v1/open-close/${stockTicker}/${daysDate}?apiKey=YezH1NTxZjofbNK4HCUblp5BvmrMNlLT`)
-                let responseData = await response.data;
-                if (responseData["status"] == "OK") {
-                    let dateObject = new Date(responseData["from"]);
-                    let price = parseFloat(responseData["close"]);
-                    let stockId = req.body.stockId;
+                    setTimeout( async (i) => {
+                        let response = await axios.get(`https://api.polygon.io/v1/open-close/${stockTicker}/${fiveDates[i]}?apiKey=YezH1NTxZjofbNK4HCUblp5BvmrMNlLT`)
+                        let responseData = await response.data;
+                        if (responseData["status"] == "OK") {
+                            let dateObject = new Date(responseData["from"]);
+                            let price = parseFloat(responseData["close"]);
+                            let stockId = req.body.stockId;
 
-                    // if the date already exists as an entry in the stock history database, don't add
-                    if ( await StockHistory.findOne({where: { date: new Date(responseData["from"]) }}) === null ) {
-                        resultData.push({"id": id, "date": dateObject, "price": price, "stockId": stockId})
-                    }
-                }
-                id++;
+                            // if the date already exists as an entry in the stock history database, don't add
+                            if ( await StockHistory.findOne({where: { date: new Date(responseData["from"]) }}) === null ) {
+                                resultData.push({"id": id, "date": dateObject, "price": price, "stockId": stockId})
+                            }
+                        }
+                        id++;
+                    }, 15000);
+                }(i));
             }
             console.log(resultData);
 
