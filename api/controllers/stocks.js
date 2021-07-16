@@ -11,8 +11,9 @@ const { Stock, StockHistory} = db;
 //    PUT    /stocks/:id
 //    DELETE /stocks/:id 
 
+
 // query for last 15 weekdays in MM-DD-YYYY format
-function Last10Days () {
+Last10Days = () => {
     let result = [];
     let i = 1;
     while(result.length < 10) {
@@ -30,11 +31,44 @@ function Last10Days () {
 
             result.push( year + '-' + month + '-' + day )
         }
-        i++;
-            
+        i++;      
     }
-
     return(result);
+}
+
+// pull historical prices from Polygon.io API and insert into stock history database.
+getPrices = async (ticker, dates) => {
+    const axios = require('axios');
+    resultData = [];
+
+    const stock = await Stock.findOne({where: { ticker: ticker }});
+    // get the stock id from the ticker name
+    let stockNum = stock["id"];
+
+    let id = await StockHistory.count() + 1;
+    for(let i = 0; i < dates.length; i++) {
+        await ( async (dates) => {
+            await new Promise(resolve => setTimeout(resolve, 15000)); // wait 15 seconds
+            let response = await axios.get(`https://api.polygon.io/v1/open-close/${ticker}/${dates[i]}?apiKey=YezH1NTxZjofbNK4HCUblp5BvmrMNlLT`)
+            let responseData = await response.data;
+            if (responseData["status"] == "OK") {
+                let dateObject = new Date(responseData["from"]);
+                let price = parseFloat(responseData["close"]);
+                let stockId = stockNum;
+
+                // if the date already exists as an entry in the stock history database, don't add
+                if ( await StockHistory.findOne({where: { date: new Date(responseData["from"]), stockId: stockId }}) === null ) {
+                    resultData.push({"id": id, "date": dateObject, "price": price, "stockId": stockId})
+                }
+            }
+            id++;
+        })(dates);
+    }
+    console.log(resultData);
+
+    StockHistory.bulkCreate(
+        resultData, {returning: true, ignoreDuplicates: true}
+    );
 }
 
 // Get a list of all the stocks in the database.
@@ -79,53 +113,44 @@ router.patch('/:stockTicker', async (req, res) => {
 router.put('/price-history/:stockTicker/', async(req, res) => {
     try {
         const { stockTicker } = req.params;
-        // const { date } = req.params;
-
-        const stock = await Stock.findOne({where: { ticker: stockTicker }});
-
-        // get the stock id from the ticker name
-        let stockNum = stock["id"];
-        console.log(stockNum);
         
         // retrieve last 10 weekdays
         formattedDates = Last10Days();
         console.log(formattedDates);
 
-        sevenDates = formattedDates.slice(0, 7);
+        sevenDates = formattedDates.slice(0, 2);
         console.log(sevenDates);
 
-        const axios = require('axios');
-        resultData = [];
-        getPrices = async () => {
-            let id = await StockHistory.count() + 1;
-            for(let i = 0; i < sevenDates.length; i++) {
-                await ( async (sevenDates) => {
-                    await new Promise(resolve => setTimeout(resolve, 15000)); // wait 15 seconds
-                    let response = await axios.get(`https://api.polygon.io/v1/open-close/${stockTicker}/${sevenDates[i]}?apiKey=YezH1NTxZjofbNK4HCUblp5BvmrMNlLT`)
-                    let responseData = await response.data;
-                    if (responseData["status"] == "OK") {
-                        let dateObject = new Date(responseData["from"]);
-                        let price = parseFloat(responseData["close"]);
-                        let stockId = stockNum;
-
-                        // if the date already exists as an entry in the stock history database, don't add
-                        if ( await StockHistory.findOne({where: { date: new Date(responseData["from"]) }}) === null ) {
-                            resultData.push({"id": id, "date": dateObject, "price": price, "stockId": stockId})
-                        }
-                    }
-                    id++;
-                })(sevenDates);
-            }
-            console.log(resultData);
-
-            StockHistory.bulkCreate(
-                resultData, {returning: true, ignoreDuplicates: true}
-            );
-        }
-
-        getPrices();
+        getPrices(stockTicker, sevenDates);
 
         res.json("Added historical prices to database")
+    }
+    catch(error) {
+        console.log(error);
+    }
+});
+
+// Update weekly historical prices of all stocks in the database.
+router.put('/price-histories', async(req, res) => {
+    try {
+        // retrieve list of all tickers in database
+        tickers = [];
+        days = Last10Days().slice(0, 2);
+        let stocksListObject = await Stock.findAll({});
+        for (let i = 0; i < stocksListObject.length; i++) {
+            tickers.push(stocksListObject[i]["dataValues"]["ticker"]);
+        }
+        
+        console.log(tickers);
+        console.log(days);
+
+        for (let i = 0; i < tickers.length; i++) {
+            await (async (tickers, days) => {
+                await getPrices(tickers[i], days);
+            })(tickers, days);
+        }
+
+        res.json("Added historical prices for all stocks into the database")
     }
     catch(error) {
         console.log(error);

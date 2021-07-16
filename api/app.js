@@ -47,7 +47,9 @@ seedDB();
 
 // start up the server
 if (PORT) {
-  app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+  app.listen(PORT, () => {
+    console.log(`Listening on ${PORT}`);
+  });
 } else {
   console.log("===== ERROR ====\nCREATE A .env FILE!\n===== /ERROR ====")
 }
